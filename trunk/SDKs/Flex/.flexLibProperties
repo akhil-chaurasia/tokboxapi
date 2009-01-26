@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flexLibProperties version="1">
+<includeClasses>
+<classEntry path="com.tokbox.api.TokBoxVMail"/>
+<classEntry path="com.tokbox.api.TokBoxAPI"/>
+<classEntry path="com.tokbox.util.MD5"/>
+<classEntry path="com.tokbox.util.URLEncoding"/>
+<classEntry path="com.tokbox.api.TokBoxUser"/>
+<classEntry path="com.tokbox.api.API_Config"/>
+<classEntry path="com.tokbox.api.TokBoxCall"/>
+<classEntry path="com.tokbox.api.TokBoxVMailUser"/>
+<classEntry path="com.tokbox.api.BaseAPI"/>
+<classEntry path="com.tokbox.api.TokBoxVideo"/>
+</includeClasses>
+<includeResources/>
+<namespaceManifests/>
+</flexLibProperties>

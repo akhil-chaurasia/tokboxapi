@@ -1,0 +1,5 @@
+INSTALL DIRECTIONS:
+============================================
+You will need to set the API key/secret pair, and make sure that the 
+callback.php file is properly referenced in your CALLBACK_URL property
+in the API_Config.php file under the SDK folder.
