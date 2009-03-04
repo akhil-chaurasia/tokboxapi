@@ -187,6 +187,38 @@ public class TokBoxAPI extends BaseAPI {
 	}
 
 	/**
+	 *Return a list of servers to run latency tests on. This should return a server from each region.
+	 *
+	 *AuthLevel: require_guest
+	 *
+	 *
+	 *@return Response string to API call
+	*/
+	public String getTestServers() {
+		String method = "POST";
+		String url = "/calls/getTestServers";
+		Map <String, String> paramList = new HashMap<String, String>();
+
+		return TB_Request(method, url, paramList);
+	}
+
+	/**
+	 *Returns the address of a server for recording vmails, and one for playback.
+	 *
+	 *AuthLevel: require_guest
+	 *
+	 *
+	 *@return Response string to API call
+	*/
+	public String getvmailserver() {
+		String method = "POST";
+		String url = "/vmail/getVMailServer";
+		Map <String, String> paramList = new HashMap<String, String>();
+
+		return TB_Request(method, url, paramList);
+	}
+
+	/**
 	 *Send a video mail to either TokBox contacts or a list of e-mail contacts.
 	 *
 	 *AuthLevel: require_guest
