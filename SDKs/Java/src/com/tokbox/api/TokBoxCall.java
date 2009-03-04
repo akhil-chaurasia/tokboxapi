@@ -28,7 +28,7 @@ public class TokBoxCall {
 
 		try {		
 			if(TokBoxUser.isValid(apiObj, API_Config.PARTNER_SECRET)) {
-				Document document = TokBoxUtils.setupDocument(apiObj.createCall(displayname, apiObj.getJabberId(), Boolean.toString(persistent), ""));
+				Document document = TokBoxUtils.setupDocument(apiObj.createCall(apiObj.getJabberId(), displayname, "", Boolean.toString(persistent)));
 
 				Node createCall = TokBoxUtils.parseXML("createCall", document.getElementsByTagName("createCall"));
 				Node callIdNode = TokBoxUtils.parseXML("callId", createCall.getChildNodes());
@@ -75,7 +75,7 @@ public class TokBoxCall {
 
 		try {		
 			if(TokBoxUser.isValid(apiObj, API_Config.PARTNER_SECRET)) {
-				Document document = TokBoxUtils.setupDocument(apiObj.createInvite(callId, calleeId, apiObj.getJabberId()));
+				Document document = TokBoxUtils.setupDocument(apiObj.createInvite(apiObj.getJabberId(), calleeId, callId));
 
 				Node createInvite = TokBoxUtils.parseXML("createInvite", document.getElementsByTagName("createInvite"));
 				Node inviteIdNode = TokBoxUtils.parseXML("inviteId", createInvite.getChildNodes());

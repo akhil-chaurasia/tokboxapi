@@ -76,7 +76,7 @@ public class TokBoxUser {
 
 		Document document;
 		try {
-			document = TokBoxUtils.setupDocument(apiObj.registerUser(email, lastname, firstname, Boolean.toString(searchAllow)));
+			document = TokBoxUtils.setupDocument(apiObj.registerUser(firstname, lastname, email, Boolean.toString(searchAllow)));
 
 			Node registerUserNode = TokBoxUtils.parseXML("registerUser", document.getElementsByTagName("registerUser"));
 			Node jabberIdNode = TokBoxUtils.parseXML("jabberId", registerUserNode.getChildNodes());
@@ -118,7 +118,7 @@ public class TokBoxUser {
 
 		Document document;
 		try {
-			document = TokBoxUtils.setupDocument(apiObj.validateAccessToken(accessSecret, apiObj.getJabberId()));
+			document = TokBoxUtils.setupDocument(apiObj.validateAccessToken(apiObj.getJabberId(), accessSecret));
 			
 			Node validateAccessToken = TokBoxUtils.parseXML("validateAccessToken", document.getElementsByTagName("validateAccessToken"));
 			Node isValid = TokBoxUtils.parseXML("isValid", validateAccessToken.getChildNodes());

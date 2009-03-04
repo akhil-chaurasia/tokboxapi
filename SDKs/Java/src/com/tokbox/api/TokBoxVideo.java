@@ -52,7 +52,7 @@ public class TokBoxVideo {
 		Document document = null;
 		try {		
 			if(TokBoxUser.isValid(apiObj, API_Config.PARTNER_SECRET)) {
-				document = TokBoxUtils.setupDocument(apiObj.getFeed(apiObj.getJabberId(), type, Integer.toString(startPage), Integer.toString(count), "", ""));
+				document = TokBoxUtils.setupDocument(apiObj.getFeed(apiObj.getJabberId(), type, Integer.toString(startPage), Integer.toString(count), "", "", ""));
 
 				feedItems = new ArrayList<TokBoxVMail>();
 				Node feedNode = TokBoxUtils.parseXML("feed", document.getElementsByTagName("feed"));
