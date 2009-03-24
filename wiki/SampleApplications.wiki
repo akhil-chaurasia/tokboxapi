@@ -1,7 +1,7 @@
 #summary A page of sample applications which have been written for the TokBox API
 
 =Applications=
-==VideoParty==
+==Video Party==
 *Description:* An application which generates video party rooms to chat with your friends on a specific topic.
 
 *Featured Functionality:* Dynamically generated video conferences
