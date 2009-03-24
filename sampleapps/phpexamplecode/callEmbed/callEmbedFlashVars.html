@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Test Call Embed Flash Variables</title>
+	<script type="text/javascript" src="swfobject.js" />
+</head>
+<body>
+<p>The default values for these parameters are:</p>
+<ul>
+	<li>Text Chat: false</li>
+	<li>Add Friends View: true</li>
+	<li>Record Button: false</li>
+	<li>Phone Button: false</li>
+	<li>Guest List: true</li>
+	<li>Observer Mode: false</li>
+	<li>Invite View: false</li>
+	<li>Add Video Button: false</li>
+	<li>Twitter Button: false</li>
+</ul>
+<hr/>
+<p>Add Video Button = True</p>
+<script type="text/javascript">
+	var flashvars = {};
+	flashvars.addVideoButton = "true";
+	
+	var params = {};
+	params.allowscriptaccess = "always";
+
+	var attributes = {};
+	attributes.id = "tbx_call"
+
+	swfobject.embedSWF("http://qa.tokbox.com/vc/b9h56uugjqqpacnc", "addVideoButton", "425", "368", "9.0.115", false, flashvars, params, attributes);
+</script>
+<div id="addVideoButton"></div>
+<hr/>
+<p>Guest List = False</p>
+<script type="text/javascript">
+	var flashvars = {};
+	flashvars.guestList = "false";
+	
+	var params = {};
+	params.allowscriptaccess = "always";
+
+	var attributes = {};
+	attributes.id = "tbx_call"
+
+	swfobject.embedSWF("http://qa.tokbox.com/vc/b9h56uugjqqpacnc", "guestList", "425", "368", "9.0.115", false, flashvars, params, attributes);
+</script>
+<div id="guestList"></div>
+<hr/>
+<p>Inviting User = true</p>
+<script type="text/javascript">
+	var flashvars = {};
+	flashvars.invitingUser = "true";
+	
+	var params = {};
+	params.allowscriptaccess = "always";
+
+	var attributes = {};
+	attributes.id = "tbx_call"
+
+	swfobject.embedSWF("http://qa.tokbox.com/vc/b9h56uugjqqpacnc", "invitingUser", "425", "368", "9.0.115", false, flashvars, params, attributes);
+</script>
+<div id="invitingUser"></div>
+<hr/>
+<p>Observer Mode = true</p>
+<script type="text/javascript">
+	var flashvars = {};
+	flashvars.observerMode = "true";
+	
+	var params = {};
+	params.allowscriptaccess = "always";
+
+	var attributes = {};
+	attributes.id = "tbx_call"
+
+	swfobject.embedSWF("http://qa.tokbox.com/vc/b9h56uugjqqpacnc", "observerMode", "425", "368", "9.0.115", false, flashvars, params, attributes);
+</script>
+<div id="observerMode"></div>
+<hr/>
+<p>Show Add Friends = False</p>
+<script type="text/javascript">
+	var flashvars = {};
+	flashvars.showAddFriends = "false";
+	
+	var params = {};
+	params.allowscriptaccess = "always";
+
+	var attributes = {};
+	attributes.id = "tbx_call"
+
+	swfobject.embedSWF("http://qa.tokbox.com/vc/b9h56uugjqqpacnc", "showAddFriends", "425", "368", "9.0.115", false, flashvars, params, attributes);
+</script>
+<div id="showAddFriends"></div>
+<hr/>
+<p>Show Twitter Button = true</p>
+<script type="text/javascript">
+	var flashvars = {};
+	flashvars.showTwitterButton = "false";
+	
+	var params = {};
+	params.allowscriptaccess = "always";
+
+	var attributes = {};
+	attributes.id = "tbx_call"
+
+	swfobject.embedSWF("http://qa.tokbox.com/vc/b9h56uugjqqpacnc", "showTwitter", "425", "368", "9.0.115", false, flashvars, params, attributes);
+</script>
+<div id="showTwitter"></div>
+<hr/>
+<p>Text Chat = True</p>
+<script type="text/javascript">
+	var flashvars = {};
+	flashvars.textChat = "true";
+	
+	var params = {};
+	params.allowscriptaccess = "always";
+
+	var attributes = {};
+	attributes.id = "tbx_call"
+
+	swfobject.embedSWF("http://qa.tokbox.com/vc/b9h56uugjqqpacnc", "textChat", "425", "368", "9.0.115", false, flashvars, params, attributes);
+</script>
+<div id="textChat"></div>
+<hr/>
+</body>
+</html>
