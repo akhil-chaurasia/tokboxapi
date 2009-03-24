@@ -1,0 +1,29 @@
+#summary A page of sample applications which have been written for the TokBox API
+
+=Applications=
+==VideoParty==
+*Description:* An application which generates video party rooms to chat with your friends on a specific topic.
+
+*Featured Functionality:* Dynamically generated video conferences
+
+<a href="http://sandbox.tokbox.com/sampleApp/generator">Try this application</a> | <a href="http://sandbox.tokbox.com/assets/API/videoparty.zip">Download source code (PHP)</a>
+
+==Wedding Video Guestbook==
+*Description:* A video guestbook for friends who can't make it to your wedding or just want to send well wishes in a unique way.
+
+*Featured Functionality:* VMail Recorder; VMail playback; Reading a user's feed; Using built-in Javascript functions from the recorder widget
+
+<a href="http://sandbox.tokbox.com/sampleApp/guestbook">Try this application</a> | <a href="http://sandbox.tokbox.com/assets/API/weddingbook.zip">Download source code (PHP)</a>
+
+=Source Code=
+==VMail Reader==
+  * <a href="http://sandbox.tokbox.com/assets/API/vmailReader.zip">Source Code (PHP)</a>
+  * Creates an interface for reading VMails that were sent to a user. Demonstrates functionality surrounding dealing with feeds, embedding the TokBox player, and handling user login and registration 
+
+==Invite Function==
+  * <a href="http://sandbox.tokbox.com/assets/API/InviteFunction.zip">Source Code (PHP)</a>
+  * Adds a button to the embed of a call widget which will in turn call the specified user when clicked. Allows a specified user to be invited to a call if they are on the TokBox site or in the AIR application, but not where the widget is embedded. 
+
+==Who Am I==
+  * <a href="http://sandbox.tokbox.com/assets/API/WhoAmI.zip">Source Code (PHP)</a>
+  * Allows you to find out your User ID and Jabber ID in case you are embedding a widget, but don't know these values and need them.
