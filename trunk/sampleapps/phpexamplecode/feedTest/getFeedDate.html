@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>Get Feed Date Range Test</title>
+</head>
+<body>
+	<p>
+	<form action="getFeedDate.php" method="POST">
+		Start Date: <input type="text" name="startDate" value=""/><br/>
+		End Date: <input type="text" name="endDate" value=""/><br/>
+		<input type="submit" value="Submit" name="submit"/>
+	</form>
+	</p>
+	<p>
+	getFeed takes a daterange X - X where dateranges are as follows:
+   * Valid dateranges can be recognized by the following cfg:
+   dateRange -> date - date
+   date -> UNIXTIMESTAMP
+   date -> yyyy-mm-dd time
+   date -> e
+   time -> HH:MM:SS
+   time -> e
+   A blank date indicates no bound
+
+
+For example
+
+2008-08-01 - 2008-09-01
+	</p>
+</body>
+</html>

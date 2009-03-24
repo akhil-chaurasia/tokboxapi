@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<title>TokBox | Test Call Expand Button Functionality</title>
+	<script type="text/javascript" src="swfobject.js"></script>
+</head>
+<body>
+	<div>
+		<h2>ShowExpandButton="true"</h2>
+		<script type="text/javascript">
+			var flashvars = {};
+			flashvars.showExpandButton = "true";
+
+			var params = {};
+			params.allowscriptaccess = "always";
+
+			var attributes = {};
+			attributes.id = "tbx_call"
+
+			swfobject.embedSWF("http://melih.tokbox.com/vc/e43obn7dg86i20sf", "test1", "425", "368", "9.0.115", false, flashvars, params, attributes);
+		</script>
+		<div id="test1"></div>	
+	</div>
+	<hr/>
+	<div>
+		<h2>ShowExpandButton="false"</h2>
+		<script type="text/javascript">
+			var flashvars = {};
+			flashvars.showExpandButton = "false";
+
+			var params = {};
+			params.allowscriptaccess = "always";
+
+			var attributes = {};
+			attributes.id = "tbx_call"
+
+			swfobject.embedSWF("http://melih.tokbox.com/vc/e43obn7dg86i20sf", "test2", "425", "368", "9.0.115", false, flashvars, params, attributes);
+		</script>
+		<div id="test2"></div>	
+	</div>	
+	<hr/>
+	<div>
+		<h2>ShowExpandButton="true" && showFullscreenButton="true"</h2>
+		<script type="text/javascript">
+			var flashvars = {};
+			flashvars.showExpandButton = "true";
+			flashvars.showFullscreenButton= "true";
+
+			var params = {};
+			params.allowscriptaccess = "always";
+
+			var attributes = {};
+			attributes.id = "tbx_call"
+
+			swfobject.embedSWF("http://melih.tokbox.com/vc/e43obn7dg86i20sf", "test3", "425", "368", "9.0.115", false, flashvars, params, attributes);
+		</script>
+		<div id="test3"></div>	
+	</div>
+</body>
+</html>
