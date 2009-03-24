@@ -3,7 +3,7 @@
 == Getting Started ==
 
 ==== Where can I get Help? ====
-  * Post a message to the the <a href="http://groups.google.com/group/tokbox-developers">TokBox Developers group</a>.
+  * Post a message to the the <a href="http://groups.google.com/group/tokbox-developers">TokBox-Developers group</a>.
 
 ==== How do I get an API Key? ====
   * For your production environment, submit the <a href="http://developers.tokbox.com/index.php/Production_TokBox_API_Key_Request_Form>Production API Key request form</a>.
