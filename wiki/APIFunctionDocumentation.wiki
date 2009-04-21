@@ -1,5 +1,5 @@
-=API Function Documentation=
 #summary List of all of the API Functions, their signatures, and their return syntax
+=API Function Documentation=
 
 ==Call API Actions==
   * [CreateCall Create Call]
