@@ -11,50 +11,50 @@
     * Get the media server / callId from an inviteId.
 
   * [ValidateCallID Validate Call ID]
-    * Returns whether or not a call id still exists
+    *  Returns whether or not a call id still exists
 
 ==Contacts API Actions==
   * [AddContact Add Contact]
-    * Add users to your TokBox contact list.
+    *  Add users to your TokBox contact list.
 
   * [IsFriend Is Friend]
-    *Get the relation between two users.
+    * Get the relation between two users.
 
   * [RemoveContact Remove Contact]
-    *Remove a user from your TokBox contact list.
+    * Remove a user from your TokBox contact list.
 
 ==Feed API Actions==
   * [AddComment Add Comment]
-    *Add a comment on the end of the specified post
+    * Add a comment on the end of the specified post
 
   * [DeleteCallEvent Delete Missed Call from Feed]
-    *Delete a call event from the feed
+    * Delete a call event from the feed
 
   * [DeleteVMail Delete VMail from Feed]
-    *Removes a video mail from a user's feed/inbox.
+    * Removes a video mail from a user's feed/inbox.
 
   * [GetAllPostComments Get All of the Comments on a Post]
-    *Returns a list of all the comments associated with a given post
+    * Returns a list of all the comments associated with a given post
 
   * [GetFeed Get Feed]
-    *Return the user's feed.
+    * Return the user's feed.
 
   * [GetFeedUnreadCount Get Feed Unread Count]
-    *Returns the number of unread feed items
+    * Returns the number of unread feed items
 
   * [MarkCallEventViewed Mark Missed Call as Read in Feed]
-    *Mark a call event as viewed
+    * Mark a call event as viewed
 
   * [MarkVMailRead Mark VMail as Read]
-    *Mark a video mail read.
+    * Mark a video mail read.
 
 ==Token API Actions==
   * [GetRequestToken Get Request Token]
-    *Creates a request token tied to the creating partner.
-    *This can be exchanged on the TokBox site for an access token, which is then passed to API calls as authentication on user actions.
+    * Creates a request token tied to the creating partner.
+    * This can be exchanged on the TokBox site for an access token, which is then passed to API calls as authentication on user actions.
 
   * [ValidateAccessToken Validate Access Token]
-    *Ensures that the access token and the associated user are correlated by the TokBox system.
+    * Ensures that the access token and the associated user are correlated by the TokBox system.
 
 ==User API Actions==
   * [CreateGuestUser Create Guest User]
@@ -77,4 +77,4 @@
     * Post a video mail into the public feed.
 
   * [SendVMail Send VMail]
-    *Send a video mail to either TokBox contacts or a list of e-mail contacts.
+    * Send a video mail to either TokBox contacts or a list of e-mail contacts.
