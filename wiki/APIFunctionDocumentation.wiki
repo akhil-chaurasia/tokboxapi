@@ -1,0 +1,80 @@
+=API Function Documentation=
+
+==Call API Actions==
+  * [http://code.google.com/p/tokboxapi/wiki/CreateCall Create Call]
+    * Create a call and return the media server address and call id. 
+
+* [[Create Invite]]
+**Create an invite to a particular call and return an invite id.
+
+* [[Join Call]]
+**Get the media server / callId from an inviteId.
+
+* [[Validate Call ID]]
+** Returns whether or not a call id still exists
+
+==Contacts API Actions==
+* [[Add Contact]]
+**Add users to your TokBox contact list.
+
+* [[Is Friend]]
+**Get the relation between two users.
+
+* [[Remove Contact]]
+**Remove a user from your TokBox contact list.
+
+==Feed API Actions==
+* [[Add Comment]]
+**Add a comment on the end of the specified post
+
+* [[Delete Call Event| Delete Missed Call from Feed]]
+**Delete a call event from the feed
+
+* [[Delete VMail | Delete VMail from Feed]]
+**Removes a video mail from a user's feed/inbox.
+
+* [[Get All Post Comments | Get All of the Comments on a Post]]
+**Returns a list of all the comments associated with a given post
+
+* [[Get Feed]]
+**Return the user's feed.
+
+* [[Get Feed Unread Count]]
+**Returns the number of unread feed items
+
+* [[Mark Call Event Viewed | Mark Missed Call as Read in Feed]]
+**Mark a call event as viewed
+
+* [[Mark VMail Read | Mark VMail as Read]]
+**Mark a video mail read.
+
+==Token API Actions==
+* [[Get Request Token]]
+**Creates a request token tied to the creating partner.
+**This can be exchanged on the TokBox site for an access token, which is then passed to API calls as authentication on user actions.
+
+* [[Validate Access Token]]
+**Ensures that the access token and the associated user are correlated by the TokBox system.
+
+==User API Actions==
+* [[Create Guest User]]
+**Create a guest user on the TokBox jabber server to make/receive calls.
+
+* [[Get User Profile]]
+**Returns - User ID, Jabber ID, First Name, Last Name, Display Name, Username - about a user.
+
+* [[Register User]]
+**Register a user with the system
+
+==VMail API Actions==
+* [[Forward VMail]]
+**Forward a video mail to either TokBox contacts or a list of e-mail contacts.
+
+* [[Get VMail]]
+**Return information about a video mail
+
+* [[Post Public VMail]]
+**Post a video mail into the public feed.
+
+* [[Send VMail]]
+**Send a video mail to either TokBox contacts or a list of e-mail contacts.
