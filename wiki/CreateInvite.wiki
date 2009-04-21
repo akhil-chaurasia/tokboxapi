@@ -1,0 +1,44 @@
+#summary Create an Invite ID with which to invite a user to a call
+
+==Description==
+  * *Authorization Level:* require_guest
+
+
+==Parameters==
+<table cellpadding="2" style="background-color:#E0FFFF; border:1px solid #48D1CC; margin: 0px; width: 100%">
+|| *Required* || *Name* || *Type* || *Description* ||
+|| required || callerJabberId || integer || Jabber ID of the inviting user ||
+|| || calleeJabberId || string || Jabber ID of the invited user (e.g. 64@jabber.tokbox.com) ||
+|| || call_id || string || Call ID returned from [CreateCall Create Call] API function ||
+</table>
+
+
+==Error Codes==
+<table cellpadding="2" style="background-color:#FFC0CB; border:1px solid #CD5C5C; margin: 0px;">
+|| *Code* || *Exception* || *Description* ||
+|| 401 || UnauthorizedUserException || You are not authorized to make requests as userid ###. Authorized as ####. ||
+|| 500 || SerializableException || Call for call_id: #### not found. ||
+</table>
+
+
+==Return Syntax==
+{{{
+<tokResult>
+     <createInvite callerJabberId="######@jabber.dev.tokbox.com" calleeJabberId="######@jabber.dev.tokbox.com" callId="8u17nnalmsqve7bp">
+          <inviteId>tb805j6mm112lgdy</inviteId>
+     </createInvite>
+     <serverInformation>
+          <address>76.74.154.35</address>
+          <name>sandbox.tokbox.com</name>
+          <userAgent>N/A</userAgent>
+          <remoteAddress>76.74.154.35</remoteAddress>
+          <requestURI>/calls/invite</requestURI>
+     </serverInformation>
+     <partner key="####"/>
+     <timer startTime="1221984737.7179" execTime="103.66797447205"/>
+</tokResult>
+}}}
+
+==Notes==
+  * The calleeJabberId is used for missed call notifications
+  * Clients are expected to use inviteids to join calls
