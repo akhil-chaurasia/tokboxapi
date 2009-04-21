@@ -4,14 +4,14 @@
   * [CreateCall Create Call]
     * Create a call and return the media server address and call id. 
 
-* [[Create Invite]]
-**Create an invite to a particular call and return an invite id.
+  * [http://code.google.com/p/tokboxapi/wiki/CreateInvite Create Invite]
+    *Create an invite to a particular call and return an invite id.
 
-* [[Join Call]]
-**Get the media server / callId from an inviteId.
+  * [http://code.google.com/p/tokboxapi/wiki/JoinCall Join Call]
+    *Get the media server / callId from an inviteId.
 
-* [[Validate Call ID]]
-** Returns whether or not a call id still exists
+  * [http://code.google.com/p/tokboxapi/wiki/ValidateCallID Validate Call ID]
+    * Returns whether or not a call id still exists
 
 ==Contacts API Actions==
 * [[Add Contact]]
