@@ -1,0 +1,36 @@
+#summary Validate whether a Call ID is still valid or not
+
+==Description==
+  * *Authorization Level:* require_guest
+
+==Parameters==
+<table cellpadding="2" style="background-color:#E0FFFF; border:1px solid #48D1CC; margin: 0px; width: 100%">
+|| *Required* || *Name* || *Type* || *Description* ||
+|| required || callid || string || Call ID returned from [ CreateCall Create Call] ||
+</table>
+
+
+==Error Codes==
+<table cellpadding="2" style="background-color:#FFC0CB; border:1px solid #CD5C5C; margin: 0px;">
+|| *Code* || *Exception* || *Description* ||
+</table>
+
+
+==Return Syntax==
+{{{
+<tokResult>
+     <validateCall>
+          <callid>############</callid>
+          <isValid>false</isValid>
+     </validateCall>
+     <serverInformation>
+          <address>76.74.154.35</address>
+          <name>sandbox.tokbox.com</name>
+          <userAgent>N/A</userAgent>
+          <remoteAddress>76.74.154.35</remoteAddress>
+          <requestURI>/calls/validate</requestURI>
+     </serverInformation>
+     <partner key="####"/>
+     <timer startTime="1221984888.8777" execTime="62.808036804199"/>
+</tokResult>
+}}}
