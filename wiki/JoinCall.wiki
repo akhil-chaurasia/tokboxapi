@@ -1,0 +1,42 @@
+#summary Get the server on which a call can be found based on an invite ID
+
+==Description==
+  * *Authorization Level:* require_guest
+
+
+==Parameters==
+<table cellpadding="2" style="background-color:#E0FFFF; border:1px solid #48D1CC; margin: 0px; width: 100%">
+|| *Required* || *Name* || *Type* || *Description* ||
+|| required || invite_id || string || Invite ID returned from [CreateInvite Create Invite] ||
+</table>
+
+
+==Error Codes==
+<table cellpadding="2" style="background-color:#FFC0CB; border:1px solid #CD5C5C; margin: 0px;">
+|| *Code* || *Exception* || *Description* ||
+|| 500 || SerializableException || Call for inviteid=#### not found ||
+</table>
+
+
+==Return Syntax==
+{{{
+<tokResult>
+     <joinCall inviteId="tbhmvhijb890aw7j">
+          <callId>b8sfo3azkfsftcb9</callId>
+          <server></server>
+          <caller>
+               <jabberId>######@jabber.dev.tokbox.com</jabberId>
+               <fullName></fullName>
+          </caller>
+     </joinCall>
+     <serverInformation>
+          <address>76.74.154.35</address>
+          <name>sandbox.tokbox.com</name>
+          <userAgent>N/A</userAgent>
+          <remoteAddress>76.74.154.35</remoteAddress>
+          <requestURI>/calls/join</requestURI>
+     </serverInformation>
+     <partner key="####"/>
+     <timer startTime="1221984888.8777" execTime="62.808036804199"/>
+</tokResult>
+}}}
