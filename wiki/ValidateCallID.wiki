@@ -6,7 +6,7 @@
 ==Parameters==
 <table cellpadding="2" style="background-color:#E0FFFF; border:1px solid #48D1CC; margin: 0px; width: 100%">
 || *Required* || *Name* || *Type* || *Description* ||
-|| required || callid || string || Call ID returned from [ CreateCall Create Call] ||
+|| required || callid || string || Call ID returned from [CreateCall Create Call] ||
 </table>
 
 
