@@ -1,0 +1,41 @@
+#summary Add a contact as a friend
+
+==Description==
+  * *Authorization Level:* require_user
+
+
+==Parameters==
+<table cellpadding="2" style="background-color:#E0FFFF; border:1px solid #48D1CC; margin: 0px; width: 100%">
+|| *Required* || *Name* || *Type* || *Description* ||
+|| required || jabberId || jid || Jabber ID of the user adding friends to their list. ||
+|| || remoteJabberId || jid || Comma separated list of jabber IDs to add to the contact list of the adding user. ||
+</table>
+
+==Error Codes==
+<table cellpadding="2" style="background-color:#FFC0CB; border:1px solid #CD5C5C; margin: 0px;">
+|| *Code* || *Exception* || *Description* ||
+|| -1 || INVALID_USERID || Contact [id: ####] does not exist.||
+|| -2 || ALREADY_IN_CONTACTS || Contact [id: ####] is already your contact. ||
+|| 401 || UnauthorizedUserException || You are not authorized to make requests as userid ###. Authorized as ####. ||
+</table>
+
+
+==Return Syntax==
+{{{
+<tokResult>
+     <addContact jabberId="###@jabber.dev.tokbox.com" remoteJabberId="#####@jabber.dev.tokbox.com">
+          <batchAddResults count="1">
+               <contactResult jabberId="#####@jabber.dev.tokbox.com" result="SUCCESS"/>
+          </batchAddResults>
+     </addContact>
+     <serverInformation>
+          <address>76.74.154.35</address>
+          <name>sandbox.tokbox.com</name>
+          <userAgent>N/A</userAgent>
+          <remoteAddress>76.74.154.35</remoteAddress>
+          <requestURI>/contacts/add</requestURI>
+     </serverInformation>
+     <partner key="###"/>
+     <timer startTime="1221985001.1467" execTime="720.49307823181"/>
+</tokResult>
+}}}
