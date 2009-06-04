@@ -17,8 +17,8 @@
 
 =Source Code=
 ==Invite Generator==
-* <a href="http://tokboxapi.googlecode.com/files/inviteGenerator.zip">Source Code (PHP)</a>
-* Generates an invite and sends it through a call widget to the party on the other end to accept assuming that they are logged into either the <a href="http://www.tokbox.com">TokBox</a> web application or the <a href="http://www.tokbox.com/view/downloads">AIR Desktop Client</a>
+  * <a href="http://tokboxapi.googlecode.com/files/inviteGenerator.zip">Source Code (PHP)</a>
+  * Generates an invite and sends it through a call widget to the party on the other end to accept assuming that they are logged into either the <a href="http://www.tokbox.com">TokBox</a> web application or the <a href="http://www.tokbox.com/view/downloads">AIR Desktop Client</a>
 
 ==VMail Reader==
   * <a href="http://sandbox.tokbox.com/assets/API/vmailReader.zip">Source Code (PHP)</a>
