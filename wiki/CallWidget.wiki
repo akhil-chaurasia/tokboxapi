@@ -1,0 +1,120 @@
+#summary The TokBox call widget allows users to join an ongoing TokBox call. It can be customized to fit the requirement of most sites
+
+=Video Call Widget=
+
+== About ==
+
+The TokBox call widget allows web developers to add TokBox call functionality to their web site, blog or application. The TokBox call widget can be customized to fit the needs of the site on which it is embedded, and those options are describe on this site.
+
+
+== Quick Start ==
+  * Click [http://www.tokbox.com/#embed=call here] to get started building your own custom call widget embed
+
+== Customization ==
+
+The video chat embed can be customized by setting specific values to a set of flashvars.  In addition, the embed exposes an external JavaScript interface that allows the application developer to interact with the video call in real time. 
+
+=== Flash Var Parameters ===
+=====addVideoButton=====
+  * True if the Add Video option should be available on the call widget. Through this interface, users can add YouTube, SlideShare, or TokBox VMails into the call widget.
+
+=====guestList=====
+  * True if the call widget should have a list of participants displayed. 
+  * _Note that this will add vertical height to the dimensions of your call widget, and this should be taken into account when setting the height and width of the widget._
+
+=====inviteButton=====
+  * False if the inviteButton in the chrome and in the guest list should be hidden
+
+=====invitingUser=====
+  * True if the call widget should mimic inviting a user. This should be used if another user is being invited, but may not join the call using an invite ID
+
+=====observerMode=====
+  * True if individuals should be allowed to observe the call without explicitly being a participant in the call. The user who is observing will still be present in the guest list if it is active.
+
+=====showAddFriends=====
+  * False if the call widget should hide the Add Friends pane in the video portion of the call widget
+
+=====showExpandButton=====
+  * True if the expand button should be in the chrome of the call widget. The expand functionality allows you to send users to TokBox.com where they can register to identify themselves as well as experience a larger widget size than what may be possible on a given website. Note that if showExpandButton is true, then showFullscreenButton is always false
+
+=====showFullscreenButton=====
+  * True if the full screen button should be in the chrome of the call widget.
+
+=====showTwitterButton=====
+  * True if the Twitter button should be available on the call widget. This will allow users to tweet the URL of the conference so that other users can join them. The user must have a Twitter account for this functionality to work.
+
+=====textChat=====
+  * True if the call widget should have a text chat component.
+  * _Note that this will add vertical height to the dimensions of your call widget, and this should be taken into account when setting the height and width of the widget._
+
+=== JavaScript Interface ===
+=====userCount=====
+If you want to count the number of users in a call, then simply use the following code:
+{{{
+	document.getElementById("tbx_call").userCount();	
+
+	function userCountHandler(userCount) {
+		alert("The number of users in the call is " + userCount);
+	}
+}}}
+
+=====tokbox.load=====
+If you want to execute an action, such as sending an invitation when the widget is finished loading, you can use the ''tokbox.load'' function which is called when the call widget finishes loading.
+
+Example code:
+{{{
+     if (typeof(tokbox) == 'undefined') tokbox = new Object();
+     
+     tokbox.load = function() {
+          sendInvite(...);
+     }
+}}}
+
+=====invite=====
+The invite Javascript method should create an object that has the userid, jabberid, and name of the individual being invited, and pass in an object that is indexed by the invite ID. This will notify the call widget that an invite has been sent out, and create a visual indication that an invite has been sent to the user with the name that was passed into the widget. Below is an example of how to implement the invite external interface:
+
+{{{
+//Invite User Functionality
+var sendInvite = function(userId, name, jabberId, inviteId) {
+	if(userId && name && jabberId && inviteId) {
+		var inviteObj = new Object();
+		
+		inviteObj.userId = userId;
+		inviteObj.name = name;
+		inviteObj.jabberId = jabberId;		
+		
+		var inviteHash = new Object();
+		inviteHash.inviteId = inviteObj;
+		
+		document.getElementById("tbx_call").inviteUser(inviteHash);
+	}
+	else {
+		alert("missing info to invite a user");
+	}
+};
+}}}
+
+This functionality only works when one of the users is logged into their TokBox account.
+
+=====hangup=====
+If you want the ability to hang up a user, then take advantage of the ''hangup'' function. By passing in a Jabber ID, you can hang up a user, and their video box will be removed from the call, and their call will be disconnected. However, the call will continue for the other participants minus the user who was disconnected.
+
+Example code for this function:
+{{{
+     function hangup() {
+          var user = {};
+          user.jabberId = "547935@jabber.dev.tokbox.com";
+
+          document.getElementById("tbx_call").hangupUser(user);
+     } 
+}}}
+
+=====addContent=====
+If you want to be able to programmatically add third party content such as a YouTube video or a SlideShare presentation or a TokBox Video Mail to a call, then use the ''addContent'' function.
+
+Example code for this function:
+{{{
+     function addVideo() {
+          document.getElementById('tbx_call').addContent("http://www.youtube.com/watch?v=-59TlpmQE1c");
+     }
+}}}
