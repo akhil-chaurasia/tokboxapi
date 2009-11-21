@@ -15,6 +15,10 @@ The video recorder embed can be customized by setting specific values to a range
 
 === Flashvar Parameters ===
 
+====saveTo====
+  * If you want to skip the "Send To" screen, then this flash var can be set, and needs to be the user ID of the receipient
+  * _e.g. saveTo=1 where 1 is the user ID of the user to whom you are sending the video mail_
+
 ====vmailFirstName====
   * The developer sets the first name of the sender.
   * _Note that this will only work if your users are logged out of TokBox. This feature only works in guest mode._
