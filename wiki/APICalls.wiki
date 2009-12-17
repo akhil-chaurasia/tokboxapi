@@ -30,9 +30,6 @@
   * [http://code.google.com/p/tokboxapi/wiki/DeleteVMail Delete VMail from Feed]
     * Removes a video mail from a user's feed/inbox.
 
-  * [Get All Post Comments | Get All of the Comments on a Post]
-    * Returns a list of all the comments associated with a given post
-
   * [Get Feed]
     * Return the user's feed.
 
