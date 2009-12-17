@@ -30,7 +30,7 @@
   * [http://code.google.com/p/tokboxapi/wiki/DeleteVMail Delete VMail from Feed]
     * Removes a video mail from a user's feed/inbox.
 
-  * [Get Feed]
+  * [http://code.google.com/p/tokboxapi/wiki/GetFeed | Get Feed]
     * Return the user's feed.
 
   * [Get Feed Unread Count]
