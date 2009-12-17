@@ -1,0 +1,42 @@
+#summary Delete VMail from a user's feed
+
+==Description==
+  * *Authorization Level:* require_user
+
+
+==Parameters==
+<table cellpadding="2" style="background-color:#E0FFFF; border:1px solid #48D1CC; margin: 0px; width: 100%">
+||*Required*||*Name*||*Type*||*Description*||
+||required||message_id||string||Message ID of the VMail being removed from the feed.||
+|| ||type||string||Type of message to delete from the feed. {'vmailRecv', 'vmailSent','callEvent', 'vmailPostRecv','vmailPostPublic', 'other'}||
+</table>
+
+
+==Error Codes==
+<table cellpadding="2" style="background-color:#FFC0CB; border:1px solid #CD5C5C; margin: 0px;">
+||*Code*||*Exception*||*Description*||
+||401||UnauthorizedAccessException||You are not authorized to access this resource. Authorized as ####.||
+</table>
+
+
+==Return Syntax==
+{{{
+<tokResult>
+     <markVmailRead messageId="5y2m2a8yxrwq">
+          <markedRead>
+               <messageId>5y2m2a8yxrwq</messageId>
+               <read>true</read>
+          </markedRead>
+          <unreadCount>9000</unreadCount>
+     </markVmailRead>
+     <serverInformation>
+          <address>76.74.154.35</address>
+          <name>sandbox.tokbox.com</name>
+          <userAgent>N/A</userAgent>
+          <remoteAddress>76.74.154.35</remoteAddress>
+          <requestURI>/vmail/delete</requestURI>
+     </serverInformation>
+     <partner key="###"/>
+     <timer startTime="1217981676.3499" execTime="14.281988143921"/>
+</tokResult>
+}}}
