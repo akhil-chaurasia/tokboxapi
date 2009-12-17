@@ -14,13 +14,13 @@
     * Returns whether or not a call id still exists
 
 ==Contacts API Actions==
-  * [Add Contact]
+  * [http://code.google.com/p/tokboxapi/wiki/AddContact Add Contact]
     * Add users to your TokBox contact list.
 
-  * [Is Friend]
+  * [http://code.google.com/p/tokboxapi/wiki/IsFriend Is Friend]
     * Get the relation between two users.
 
-  * [Remove Contact]
+  * [http://code.google.com/p/tokboxapi/wiki/RemoveContact Remove Contact]
     * Remove a user from your TokBox contact list.
 
 ==Feed API Actions==
