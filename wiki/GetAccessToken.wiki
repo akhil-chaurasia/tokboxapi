@@ -1,0 +1,46 @@
+#summary Get the access token of a user who has authorized you to access their feed
+
+==Description==
+  * *Authorization Level:* require_trusted_partner
+
+
+==Parameters==
+<table cellpadding="2" style="background-color:#E0FFFF; border:1px solid #48D1CC; margin: 0px; width: 100%">
+||*Required*||*Name*||*Type*||*Description*||
+||*required*||jabberId||string||Jabber ID for the user who is attempting to retrieve the token.||
+|| ||password||string||MD5 hashed password for the user who is attempting to retrieve the token.||
+</table>
+
+
+==Error Codes==
+<table cellpadding="2" style="background-color:#FFC0CB; border:1px solid #CD5C5C; margin: 0px;">
+||*Code*||*Exception*||*Description*||
+||400||TBException_InvalidInput||Partner Key does not exist.||
+||401||InvalidUserAuthException||Incorrect user credentials.||
+</table>
+
+
+==Return Syntax==
+{{{
+<tokResult>
+     <success type="login">
+          <accessToken partner_key="###" jabberId="######@jabber.dev.tokbox.com">akdlfj09ucv098uadsfk3db36fy60kc8962</accessToken>
+          <userid>######</userid>
+          <firstname>Api</firstname>
+          <lastname>User</lastname>
+          <username>ApiUser3</username>
+     </success>
+     <serverInformation>
+          <address>76.74.154.35</address>
+          <name>sandbox.tokbox.com</name>
+          <userAgent>N/A</userAgent>
+          <remoteAddress>76.74.154.35</remoteAddress>
+          <requestURI>/auth/getAccessToken</requestURI>
+     </serverInformation>
+     <partner key="###"/>
+     <timer startTime="1217972287.4674" execTime="16.432046890259"/>
+</tokResult>
+}}}
+
+==Notes==
+  * The developer must sign this with their {PARTNER_SECRET}
