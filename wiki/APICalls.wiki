@@ -53,6 +53,9 @@
   * [http://code.google.com/p/tokboxapi/wiki/ValidateAccessToken Validate Access Token]
     * Ensures that the access token and the associated user are correlated by the TokBox system.
 
+  * [http://code.google.com/p/tokboxapi/wiki/ValidatePartnerKey Validate Partner Key]
+    * Makes sure that the partner key and partner secret are valid
+
 ==User API Actions==
   * [http://code.google.com/p/tokboxapi/wiki/CreateGuestUser Create Guest User]
     * Create a guest user on the TokBox jabber server to make/receive calls.
