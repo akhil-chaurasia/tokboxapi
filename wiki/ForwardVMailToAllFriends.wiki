@@ -1,0 +1,65 @@
+#summary Forward a VMail to all of the friends in a user's contact list
+
+==Description==
+  * *Authorization Level:* require_user
+
+
+==Parameters==
+<table cellpadding="2" style="background-color:#E0FFFF; border:1px solid #48D1CC; margin: 0px; width: 100%">
+||*Required*||*Name*||*Type*||*Description*||
+||*required*||vmailId||string||Vmail ID of the recorded message that is being sent.||
+|| ||senderJabberId||jid||Jabber ID of the VMail sender.||
+|| ||text||string||Text component of the VMail message.||
+</table>
+
+==Error Codes==
+<table cellpadding="2" style="background-color:#FFC0CB; border:1px solid #CD5C5C; margin: 0px;">
+||*Code*||*Exception*||*Description*||
+||401||UnauthorizedUserException||You are not authorized to make requests as jabberid ###. Authorized as ####.||
+||500||SerializableException||Vmail was unable to be sent||
+</table>
+
+
+==Return Syntax==
+{{{
+<tokResult>
+     <sent>
+          <item sendDate="1222158721" feedId="0" type="vmailSent" jabberId="######">
+               <videoMail vmailId="x7owmwgr2gp4">
+                    <timeSent>1222158721</timeSent>
+                    <timeRead/>
+                    <content batchId="0a68ff41c8629060eb900a79d73e04b3">
+                         <text></text>
+                         <messageId>cxlpgcgzfcbk</messageId>
+                         <video>http://elko.tokbox.com/vmail/flvs/546908/x7owmwgr2gp4.flv</video>
+                         <image>http://elko.tokbox.com/vmail/flvs/546908/x7owmwgr2gp4_1.jpg</image>
+                    </content>
+                    <users>
+                         <sender jabberId="#####">
+                              <senderName>Api User</senderName>
+                         </sender>
+                         <recipients>
+                              <recipient jabberId="###">
+                                   <timeRead></timeRead>
+                                   <recipientName>TokBox Lauren</recipientName>
+                              </recipient>
+                              <recipient jabberId="######">
+                                   <timeRead></timeRead>
+                                   <recipientName>Turkish</recipientName>
+                              </recipient>
+                         </recipients>
+                    </users>
+               </videoMail>
+          </item>
+     </sent>
+     <serverInformation>
+          <address>76.74.154.35</address>
+          <name>sandbox.tokbox.com</name>
+          <userAgent>N/A</userAgent>
+          <remoteAddress>76.74.154.35</remoteAddress>
+          <requestURI>/vmail/forwardToFriends</requestURI>
+     </serverInformation>
+     <partner key="###"/>
+     <timer startTime="1218047421.7782" execTime="1065.5398368835"/>
+</tokResult>
+}}}
