@@ -70,6 +70,9 @@
   * [http://code.google.com/p/tokboxapi/wiki/ForwardVMail Forward VMail]
     * Forward a video mail to either TokBox contacts or a list of e-mail contacts.
 
+  * [http://code.google.com/p/tokboxapi/wiki/ForwardVMailToAllFriends Forward VMail to All Friends]
+    * Forward a video mail to all of the friends in a contact list
+
   * [http://code.google.com/p/tokboxapi/wiki/GetVMail Get VMail]
     * Return information about a video mail
 
