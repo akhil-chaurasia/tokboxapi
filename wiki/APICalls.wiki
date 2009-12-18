@@ -78,3 +78,6 @@
 
   * [http://code.google.com/p/tokboxapi/wiki/SendVMail Send VMail]
     * Send a video mail to either TokBox contacts or a list of e-mail contacts.
+
+  * [http://code.google.com/p/tokboxapi/wiki/SendVMailToAllFriends Send VMail to All Friends]
+    * Send a video mail to all of the friends on a user's contact list
