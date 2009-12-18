@@ -1,0 +1,65 @@
+#summary Using a MessageID retrieve a video mail
+
+==Description==
+  * *Authorization Level:* require_guest
+
+
+==Parameters==
+<table cellpadding="2" style="background-color:#E0FFFF; border:1px solid #48D1CC; margin: 0px; width: 100%">
+||*Required*||*Name*||*Type*||*Description*||
+||*required*||messageId||string||Message ID of the video mail being retrieved.||
+</table>
+
+
+==Error Codes==
+<table cellpadding="2" style="background-color:#FFC0CB; border:1px solid #CD5C5C; margin: 0px;">
+||*Code*||*Exception*||*Description*||
+||401||UnauthorizedAccessException||You are not authorized to access this resource. Authorized as ####.||
+||404||SerializableException||Vmail {MESSAGE_ID} not found||
+</table>
+
+
+==Return Syntax==
+{{{
+<tokResult>
+     <getVmail messageId="urkbtth3sikg">
+          <videoMail vmailId="x7owmwgr2gp4">
+               <timeSent>1218736463</timeSent>
+               <timeRead>1218738368</timeRead>
+               <content batchId="67f1da06abe8c471b78ebfb5b4eaa510">
+                    <text>
+                         <br />
+                         <br />
+                         Begin forwarded message:<br />
+                         From: Adam<br />
+                         To: Ron<br />
+                         Another view count test
+                    </text>
+                    <messageId>urkbtth3sikg</messageId>
+                    <video>http://elko.tokbox.com/vmail/flvs/546908/x7owmwgr2gp4.flv</video>
+                    <image>http://elko.tokbox.com/vmail/flvs/546908/x7owmwgr2gp4_1.jpg</image>
+               </content>
+               <users>
+                    <sender jabberId="######">
+                         <senderName>Turkish</senderName>
+                    </sender>
+                    <recipients>
+                         <recipient jabberId="#######">
+                              <timeRead>1218738368</timeRead>
+                              <recipientName>Api User</recipientName>
+                         </recipient>
+                    </recipients>
+               </users>
+          </videoMail>
+     </getVmail>
+     <serverInformation>
+          <address>76.74.154.35</address>
+          <name>sandbox.tokbox.com</name>
+          <userAgent>N/A</userAgent>
+          <remoteAddress>76.74.154.35</remoteAddress>
+          <requestURI>/vmail/getVmail</requestURI>
+     </serverInformation>
+     <partner key="###"/>
+     <timer startTime="1217980457.6943" execTime="16.535043716431"/>
+</tokResult>
+}}}
