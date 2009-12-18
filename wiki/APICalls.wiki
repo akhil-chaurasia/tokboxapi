@@ -64,11 +64,11 @@
     * Register a user with the system
 
 ==VMail API Actions==
-  * [Forward VMail]
+  * [http://code.google.com/p/tokboxapi/wiki/ForwardVMail Forward VMail]
     * Forward a video mail to either TokBox contacts or a list of e-mail contacts.
 
-  * [Get VMail]
+  * [http://code.google.com/p/tokboxapi/wiki/GetVMail Get VMail]
     * Return information about a video mail
 
-  * [Send VMail]
+  * [http://code.google.com/p/tokboxapi/wiki/SendVMail Send VMail]
     * Send a video mail to either TokBox contacts or a list of e-mail contacts.
