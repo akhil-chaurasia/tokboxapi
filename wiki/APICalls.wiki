@@ -43,11 +43,11 @@
     * Mark a video mail read.
 
 ==Token API Actions==
-  * [Get Request Token]
+  * [http://code.google.com/p/tokboxapi/wiki/GetRequestToken Get Request Token]
     * Creates a request token tied to the creating partner.
     * This can be exchanged on the TokBox site for an access token, which is then passed to API calls as authentication on user actions.
 
-  * [Validate Access Token]
+  * [http://code.google.com/p/tokboxapi/wiki/GetAccessToken Validate Access Token]
     * Ensures that the access token and the associated user are correlated by the TokBox system.
 
 ==User API Actions==
