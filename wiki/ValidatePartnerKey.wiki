@@ -1,0 +1,14 @@
+#summary Verfies that your partner key and partner secret are valid.
+
+==Parameters==
+<table cellpadding="2" style="background-color:#E0FFFF; border:1px solid #48D1CC; margin: 0px; width: 100%">
+||*Required*||*Name*||*Type*||*Description*||
+||*required*||partner_key||string||Assigned partner key. Click [http://www.tokbox.com/view/developer TokBox API Key] to request one|| ||
+|| ||partner_secret_hash||string||MD5 hash of your partner_secret appended to your partner_key|| ||
+</table>
+
+==Error Codes==
+<table cellpadding="2" style="background-color:#FFC0CB; border:1px solid #CD5C5C; margin: 0px;">
+||*Code*||*Exception*||*Description*||
+||400||UnauthorizedPartnerException||Missing field partner_key||
+</table>
