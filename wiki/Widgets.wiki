@@ -1,0 +1,24 @@
+#summary All of the TokBox Platform widgets explained
+
+<table width="100%">
+<tr>
+<td>
+==[CallWidget Call Widget]==
+  * The TokBox call widget which lets you bring up to 20 people into a video chat together.
+</td>
+<td>
+==[VideoRecorderWidget Video Recorder Widget]==
+  * The TokBox recorder widget which lets you send video mails to anyone using an e-mail address, or to other users in your community
+</td>
+</tr>
+<tr>
+<td>
+==[PresenceWidget Presence Widget]==
+  * The TokBox presence widget which lets you add basic presence and IM functionality to your own website
+</td>
+<td>
+==[VideoPlayerWidget Video Player Widget]==
+  * The TokBox video player widget which lets you play back video mails recorded on TokBox.com or using the [VideoRecorderWidget Video Recorder Widget]
+</td>
+</tr>
+</table>
