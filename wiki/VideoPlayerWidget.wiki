@@ -1,0 +1,86 @@
+#summary The TokBox video player widget adds video playback to any web page. This page explains how to easily generate embed code as well as some of the customization features available for this embed.
+
+== Quick Start ==
+Simply copy the code below into your website. 
+{{{
+<object  width="425" height="344" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" >
+	<param name="movie" value="http://api.tokbox.com/vp/"></param>
+	<param name="allowFullScreen" value="true"></param>
+	<param name="allowScriptAccess" value="true"></param>
+	<param name="flashvars" value="targetVmail=#####"></param>
+	<embed id="tbx_player" src="http://api.tokbox.com/vp/" 
+		type="application/x-shockwave-flash"
+		allowfullscreen="true"
+		allowScriptAccess="always"
+		flashvars="targetVmail=#####"
+		width="425" 
+		height="344"
+	>
+	</embed>
+</object>
+}}}
+
+  * You will need to replace the ##### hash with the message id of the video mail that you are trying to replay. The best way to find this value is to play the video on [http://www.tokbox.com Tokbox] and look at the last part of the URL in the address bar.
+
+== Customization ==
+The video player embed can be customized by setting specific values to a range of flashvars.  In addition, the embed exposes an external JavaScript interface that allows the application developer to interact with the player embed in real time. 
+
+=== FlashVar Parameters ===
+=====targetVmail=====
+  * The message ID of the VMail that is being played inside of the video player embed.
+
+=====autoPlay=====
+  * True if the video should play as soon as the widget is loaded
+
+=====enableJSCallback=====
+  * True if you are using the JS interfaces to interact with the player. You will also need to make sure to set 'allowScriptAccess="always"' as a param on your &lt;object&gt; tag
+
+=== JavaScript Interface ===
+=====loadVmail=====
+If the VMail to be played is dynamic, and cannot be passed as a flashvar when the video player embed is first loaded, then your best bet is to go ahead and use this interface that is extended. It will allow you to embed a single video player on your site, but display as many VMails as you desire.
+
+{{{
+var load = function(targetVmail){
+	if (targetVmail) {
+		document.getElementById("tbx_player").loadVmail(targetVmail);
+	} else {
+		alert("no vmail specified");
+	}
+};
+}}}
+
+=====playVmail=====
+If there is a desire to create a unique play button, or give another set of controls to the user, then this interface allows control of the playback functionality of the VMail.
+
+{{{
+var play = function(e) {
+	document.getElementById("tbx_player").playVmail();
+};
+}}}
+
+=====pauseVmail=====
+If there is a desire to create a unique pause button, or give another set of controls to the user, then this interface allows control of the pause functionality of the VMail.
+
+{{{
+var pause = function(e) {
+	document.getElementById("tbx_player").pauseVmail();
+};
+}}}
+
+=====videoEnded=====
+If you need to know that the video has completed, then listen for the videoEnded function to be called.
+
+{{{
+function videoEnded() {
+     alert('Video Just Ended');
+}
+}}}
+
+=====muteVmail=====
+To programmatically mute the video player:
+
+{{{
+function mute() {
+     document.getElementById("tbx_player").muteVmail();
+}
+}}}
