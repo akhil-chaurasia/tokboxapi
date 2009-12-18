@@ -51,13 +51,13 @@
     * Ensures that the access token and the associated user are correlated by the TokBox system.
 
 ==User API Actions==
-  * [Create Guest User]
+  * [http://code.google.com/p/tokboxapi/wiki/CreateGuestUser Create Guest User]
     * Create a guest user on the TokBox jabber server to make/receive calls.
 
-  * [Get User Profile]
+  * [http://code.google.com/p/tokboxapi/wiki/GetUserProfile Get User Profile]
     * Returns - User ID, Jabber ID, First Name, Last Name, Display Name, Username - about a user.
 
-  * [Register User]
+  * [http://code.google.com/p/tokboxapi/wiki/RegisterUser Register User]
     * Register a user with the system
 
 ==VMail API Actions==
