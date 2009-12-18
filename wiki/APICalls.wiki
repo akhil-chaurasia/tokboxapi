@@ -47,7 +47,10 @@
     * Creates a request token tied to the creating partner.
     * This can be exchanged on the TokBox site for an access token, which is then passed to API calls as authentication on user actions.
 
-  * [http://code.google.com/p/tokboxapi/wiki/GetAccessToken Validate Access Token]
+  * [http://code.google.com/p/tokboxapi/wiki/GetAccessToken Get Access Token]
+    * Allows a developer to programmatically get an access token for a user who has authorized them
+
+  * [http://code.google.com/p/tokboxapi/wiki/ValidateAccessToken Validate Access Token]
     * Ensures that the access token and the associated user are correlated by the TokBox system.
 
 ==User API Actions==
