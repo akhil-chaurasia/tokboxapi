@@ -1,0 +1,214 @@
+#summary An overview to get you started with the PHP SDK and the TokBox Platform technology in general
+
+==Basics: Calls & VMails== 
+  * Basic Programming Skills + [http://www.tokbox.com/view/developer API Key] Required
+
+===The Basics===
+Before you begin, please make sure that you have an API key. If you don't, then you can go to this [http://www.tokbox.com/view/developer website], and apply to receive your key. Once you've received your API key, you will need to download the SDK. This will take care of a lot of the setup work for you, letting you get up and running without needing to dig too deeply into the specification behind the TokBox API.
+
+Your first task will be to setup your environment to work properly with your API key and your API secret. In the SDK folder, open the API_Config.php file, and make sure that you change the values of PARTNER_KEY and PARTNER_SECRET to your API key/secret pair. As an example, if your API key were {1} and your API secret were {658db7d6ea8070867a55b5bffc9a3d19} then the API_Config.php file would read:
+
+{{{
+<?php
+	
+	class API_Config {
+	
+		// Replace this value with your TokBox API Partner Key
+		const PARTNER_KEY = "1"; 
+		
+		// Replace this value with your TokBox API Partner Secret
+		const PARTNER_SECRET = "658db7d6ea8070867a55b5bffc9a3d19";
+
+                //The server against which you are making API calls
+                const API_SERVER = "http://sandbox.tokbox.com";
+}}}
+
+If you are simply testing out the functionality of the API, then you should be done with this file for now. If, however, you're ready to push your application out to the world, then go ahead and also change the API_SERVER constant to look like:
+
+{{{
+               const API_SERVER = "http://api.tokbox.com";
+}}}
+
+===Generate a guest user===
+Much of the functionality available in the TokBox API is available to a guest user. This feature allows you the developer to create a rich video experience without requiring another sign up from your users. The user will be given a guest identification within the TokBox platform, which is valid for 48 hours. The code to create a guest user should look something like this:
+
+{{{
+<?php
+
+	require_once 'SDK/TokBoxUser.php';
+
+	try {
+		$apiObj = TokBoxUser::createGuest();
+		
+		echo "printing results:<br/>";
+		echo "Jabber ID: ".$apiObj->getJabberId()."<br/>";
+	} catch(Exception $e) {
+		echo "EXCEPTION: ".$e->getMessage();
+	}
+}}}
+
+Running this code should generate a Jabber ID for our guest user. And now, what do we want to do with this guest user?
+
+===Generate a call with a guest user + join users to call as guests===
+Now that we have a guest user, we can go ahead and initiate a call. Then, we can share the link with our friends, and initiate a call that anyone can join. Keeping calls private is simply a matter of sharing the URL only with those you wish to join. Inviting users, and allowing them to join a call is a bit more advanced, and will be covered in another section. So getting back to the topic at hand, here is what the code looks like to initiate a call using our guest user:
+
+{{{
+<?php
+	require_once 'SDK/TokBoxCall.php';
+	require_once 'SDK/TokBoxUser.php';
+		
+	try {
+	        $userObj = TokBoxUser::createGuest();
+		$callid =  TokBoxCall::createCall($userObj);//guest access to a call
+	        $callUrl = TokBoxCall::generateLink($callid);//generate call URL
+	} catch(Exception $e) {
+		echo $e->getMessage();
+	}
+
+	//print out URL, and embed code
+	echo "<a href=\"$callUrl\">$callUrl</a><br/>";
+	echo TokBoxCall::generateEmbedCode($callid);
+}}}
+
+===Enable video playback of video mails as guest===
+Playing back video mails using our video player embed is the next functionality of the TokBox API that we'll discuss. Remember, you don't have to be a user in TokBox to view VMails that are sent to you, and the same philosophy holds true in our API as well. Simply embed the recorder, and pass it the appropriate message id, and you're off and running:
+
+{{{
+<?php
+	require_once 'SDK/TokBoxVideo.php';
+	
+	echo TokBoxVideo::generatePlayerEmbedCode("vxz8lbwav6il");
+}}}
+
+That's all it takes to embed a VMail into your website! Now, how do you find out what VMail to embed? Can you a find a list of a user's VMails and play them one by one? Can you build your own play button? The answers to these questions are coming in the following sections, but in one word... Yes!
+
+===Enable video playback of video mails as guest===
+TokBox has added a video recording embed as well as the video player embed that was discussed earlier. We can use a guest user to record and send VMails. We will want the video mails to come to our own account, and so we will enable that functionality as well.
+
+Here is the code:
+
+{{{
+<?php
+	require_once 'SDK/TokBoxVideo.php';
+
+	echo TokBoxVideo::generateRecorderEmbedCodeToMe("my_email@example.com");
+}}}
+
+That's it, and now your recorder functionality is all setup and ready to go!
+
+==Middle Ground: Users and Accounts==
+At this point, we've shown how to get the most basic tasks accomplished with the TokBox API. However, everything is being done with a guest user. To take it to the next level, we will need to authenticate a user. Once a user has allowed us to access their data, then we can start building more complex systems on top of the TokBox API.
+
+===Authenticate a user===
+TokBox API uses an OAuth scheme to allow the user to give the developer access to their data without needing to give their personal password. More information on OAuth can be found [http://oauth.net/core/1.0/ here]. An excellent example of how the workflow can be visualized for OAuth can also be found [http://www.hueniverse.com/hueniverse/2007/10/beginners-gui-1.html here].
+
+In OAuth terms, TokBox is the Service Provider. You as the end developer are the Consumer. The Consumer will send the User to the Service Provider where the user will log into their TokBox account, and then you will receive an access secret that will enable you to make calls on behalf of the user. In the spirit of the rest of the API, we've made the process of logging a user into TokBox as simple as possible for you the developer. This time however, it will take a little more effort on our part than it did in the case of the guest user.
+
+First, we need to set the value for the CALLBACK_URL in our API_Config.php file. Set this to a public facing website, and note the file name because we will need to write the file that you point to as part of our user authentication scheme. Once the CALLBACK_URL is set, we can then go ahead and get the OAuth process started. We should name this file loginTest.php, and make sure to note where this file is saved, and make sure that you set it as the value for {$url} in the next script:
+
+{{{
+<?php
+
+require_once 'SDK/TokBoxUser.php';
+
+try {
+
+	if(!isset($_COOKIE['tokboxId'])) {
+		TokBoxUser::loginUser();
+	}
+	
+	$tokboxId = explode(":", $_COOKIE['tokboxId']);
+
+	$jabberId = $tokboxId[0];
+	$accessSecret = $tokboxId[1];
+
+	$apiObj = TokBoxUser::createUser($jabberId, $accessSecret);
+	echo "Welcome ".$apiObj->getJabberId();
+
+} catch(Exception $e) {
+	echo $e->getMessage();
+}
+}}}
+
+Now, this code is going to take the user to the TokBox OAuth login page. Once the user is logged into their account, they will be redirected to the CALLBACK_URL that was set previously in this section. For this reason, this must be a website that is on the Internet and publicly accessible. We can use the information we get from the CALLBACK_URL page to setup a user account. We will use cookies in this example, but you could write the information to a file, to a database, or put it into a cache such as memcached. The code presented below should be put into the file that you listed in your CALLBACK_URL:
+
+{{{
+<?php
+
+	$id = trim($_GET['oauth_jabberId'].":".$_GET['oauth_secret']);
+	$cookie = setCookie("tokboxId", $id, 0);
+	$url = "{SERVER}/loginTest.php"; //fill in with file from previous code
+
+	header("Location: $url");
+}}}
+
+Now go ahead and load up loginTest.php from your browser. You should be redirected to the TokBox OAuth login page. Go ahead and fill in your TokBox credentials. If everything is setup correctly - especially API_Config::CALLBACK_URL -, then you should be redirected back to loginTest.php, with the message "Welcome " followed by your Jabber ID.
+
+
+
+===Generate a call with an authenticated user + join users to call as guests===
+Now that we have an authenticated user, we can go ahead and take advantage of the functionality that this provides. In some places, it will only act to identify the user initiating an action; while in other places, it will allow us to build a rich platform around the content associated with that user. When we generate a call with an authenticated user, we get the advantage of having our authenticated user identified by their name as opposed to "Guest". This is an example where the real advantage of being authenticated is in identifying the individual taking the action:
+
+{{{
+<?php
+
+	require_once 'SDK/TokBoxCall.php';
+	require_once 'SDK/TokBoxUser.php';
+
+	try {
+		if(!isset($_COOKIE['tokboxId'])) {
+			TokBoxUser::loginUser();
+		}
+
+		$tokboxId = explode(":", $_COOKIE['tokboxId']);
+
+		$jabberId = $tokboxId[0];
+		$accessSecret = $tokboxId[1];
+
+		$apiObj = TokBoxUser::createUser($jabberId, $accessSecret);
+
+		$callid =  TokBoxCall::createCall($apiObj); //guest access to a call
+		$callUrl = TokBoxCall::generateLink($callid); //generate call URL
+	} catch(Exception $e) {
+		echo $e->getMessage();
+	}
+	
+	//print out URL, and embed code
+	echo "<a href=\"$callUrl\">$callUrl</a><br/>";
+	echo TokBoxCall::generateEmbedCode($callid);
+}}}
+
+Sharing the link will allow guests to join, and the user who initiated the call is now identified by their full name as opposed to being a guest. Our next task with the call widget will be building an invite and join system, but that will come in the final section of this walk through.
+
+===Retrieve a user's incoming video mails===
+So authenticating a user for identification purposes is nice, but it would be even better if we could also gain some additional features from going through the user authentication process. Essentially, the user is allowing the developer to access their data by logging in through the OAuth login process. TokBox can now provide the developer with access to the user's video feed. How? In this example, we're going to pull the user's VMails that were sent to them, but the option to get public posts, VMails sent, call events, and anything else that appears in a user's feed:
+
+{{{
+<?php
+	require_once 'SDK/TokBoxUser.php';
+	require_once 'SDK/TokBoxVideo.php';
+
+	try {
+		if(!isset($_COOKIE['tokboxId'])) {
+			TokBoxUser::loginUser();
+		}
+
+		$tokboxId = explode(":", $_COOKIE['tokboxId']);
+
+		$jabberId = $tokboxId[0];
+		$accessSecret = $tokboxId[1];
+
+		$apiObj = TokBoxUser::createUser($jabberId, $accessSecret);
+		
+		$feedItems = TokBoxVideo::getVmailRecv($apiObj);
+	} catch(Exception $e) {
+		echo $e->getMessage();
+	}
+
+	foreach($feedItems as $item) {
+		echo TokBoxVideo::generatePlayerEmbedCode($item->getVmailMessageId());
+		echo "<br/><br/>";
+	}
+}}}
+
+This page will now loop through all of the VMails that the user who is logged in has received, and display a recorder in which the VMails can be viewed.
