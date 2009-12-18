@@ -1,0 +1,294 @@
+#summary The following document provides a brief overview of setting up the TokBox Presence Engine which provides the ability to send and recieve text messages (IM) to TokBox users via a simple Javascript embed. The document provides a walkthrough and appropriate code snippets. In the examples below, we are going to set up a simple form element to take a message and username and send the message to a TokBox user. Additionally, we will also be able to receive messages from other registered TokBox users and display them.
+
+=What Do you Need?=
+  # An API Key: [http://developers.tokbox.com/index.php/Sandbox_Environment_TokBox_API_Key_Request_Form SandBox Key Form]
+  # Test TokBox Account to use
+
+=Integrating the TokBox Presence Engine=
+Integrating the TokBox Presence Engine as embedded Javascript can be carried out in a few easy steps. The entire presence engine can be embedded in your application ( Ex, a HTML page ) as a Flash component. Once embedded, a user (in the case of this walkthrough a test account) can be logged in and then use send and receive methods in order to communicate with other registered TokBox users.
+==Step 1: Include the JavaScript source by copying the following line==
+For Sandbox:
+{{{
+     <script type="text/javascript" src="http://sandbox.tokbox.com/presence/"></script>
+}}}
+
+For Production:
+{{{
+     <script type="text/javascript" src="http://api.tokbox.com/presence/"></script>
+}}}
+
+==Step 2: Initialize the TokBox Object==
+''The assumption at this point is that all of this is going into a separate JS file which will be included in your HTML page. If you want to include it directly into the HTML page, then simply add the appropriate &lt;script&gt; tag around it''
+
+{{{
+TokBox.init('tokbox');
+
+var tbService = TokBox.getIMConnection('tokbox');
+tbService.connect(jabberID, partnerKey+"-"+accessSecret);
+
+}}}
+
+Variables Explained:
+  * The variable ''jabberID'' is the Jabber ID of the TokBox user who you are signing in, but only the non-domain portion. 
+    * ''As an example, assuming that the full Jabber ID was 1@jabber.dev.tokbox.com, then the value passed into the connect function would be "1".''
+  * The variable ''partnerKey'' is the Partner Key that you've received from TokBox
+  * The variable ''accessSecret'' is the Access Secret associated with the TokBox user who you are signing in
+    * _Note that you will either need to have registered the user to know this value, or you will have to have the user give you permission to access their account through our OAuth flow, which will give you the necessary Access Secret._
+
+==Step 3: Register Event Listeners==
+The Presence API works by sending and receiving messages through TokBox's own presence system. To listen for messages coming from the TokBox presence system, we will register event listeners.
+
+{{{
+tbService.registerCallback('onConnect', serviceConnect);
+tbService.registerCallback('onReceiveMessage', receiveMessage);
+tbService.registerCallback('error', errorHandler);
+}}}
+
+==Step 4: Building our Application==
+In this step we're going to add the methods that we need to receive messages. We will then work out the HTML form to submit messages. Finally, we'll work on building a &lt;div&gt; that will store the chat that's happening.
+
+===Receiving Messages===
+This handles all incoming messages as alerts which the user must acknowledge, and then dismiss. We will add UI elements to this code and handle messages we receive. For now, we simply alert the user.
+
+{{{
+var receiveMessage = function(userObj, msg) {
+         alert(userObj + ": " + msg);
+};
+}}}
+
+===Handling Errors===
+To make sure that we're logging errors properly, we've set this error handler up, which will alert us to an error. 
+When deploying with the TokBox Presence API, we recommend a more robust error handling scheme which reports errors back using your own logging API. 
+
+{{{
+var errorHandler = function(error) {
+         alert("There was an error: "+error);
+};
+}}}
+
+===Sending out a message===
+Sending a message via the presence widget is as simple as invoking the sendMessage function with a Jabber ID and a message to send. The code below illustrates this by implementing a simple form element to obtain a message and a Jabber ID to send the message to and calling the sendMessage function. The default recipient of this message is set to a user with Jabber ID ''576267@jabber.dev.tokbox.com'', but you should set it to the Jabber ID of your own user for testing purposes. In order to test this, we can send a message and then ensure, we get an alert from the receiveMessage function we have set up above. This will confirm that both the send and receive functionality work properly.
+
+{{{
+<form onsubmit="submitForm(this);return false;"> 
+    <label>To:</label> <input type="text" name="username" value="576267@jabber.dev.tokbox.com" />
+
+    <br/>
+
+    <label>Message:</label><input type="text" name="msg" />
+    
+    <br/><br/>
+    
+    <input type="submit" value="Send"> 
+</form>
+}}}
+
+{{{
+var submitForm = function(form){
+    try {
+        tbService.sendMessage(form.username.value, form.msg.value);
+    }
+    catch(err)
+    {
+       errorHandler(err);
+    }
+};
+}}}
+
+We now have all of the functionality in place to log into the service as well as send and receive messages.
+
+One important detail to keep in mind is to ensure that the document loads completely and has finished loading before we embed the TokBox Presence Engine. This can be accomplished by using the "addDomLoadEvent" which is called once the page has finished loading. Once, the page has loaded, we initialize the TokBox Presence Engine and execute the remainder of the code which we have detailed above.
+
+==Final Code Example for Sending/Receiving Messages==
+{{{
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <script type="text/javascript" src="http://sandbox.tokbox.com/presence/"></script>
+        <script type="text/javascript">
+                var tbService = null;
+                
+                swfobject.addDomLoadEvent(function() {  
+                        TokBox.init('tokbox');
+
+                        tbService = TokBox.getIMConnection('tokbox');
+                        tbService.connect('576267', '1127-28e2d6431b2b9e8da322d61897293a8e');
+
+                        tbService.registerCallback('onConnect', serviceConnect);
+                        tbService.registerCallback('onReceiveMessage', receiveMessage);
+                        tbService.registerCallback('error', errorHandler);
+                });
+
+                var receiveMessage = function(userObj, msg) {
+                     alert(userObj + ": " + msg);
+                };
+
+                var errorHandler = function(error) {
+                     alert("There was an error: "+error);
+                };
+
+                var submitForm = function(form){
+                    try{
+
+                        tbService.sendMessage(form.username.value,form.msg.value);
+                    }
+                    catch(err)
+                    {
+                           errorHandler(err);
+                    }
+                };
+        </script>
+    </head>
+    <body>
+        <form onsubmit="submitForm(this);return false;">
+            <label>To:</label> <input type="text" name="username" value="576267@jabber.dev.tokbox.com" /><br/>
+            <label>Message:</label><input type="text" name="msg" /><br/><br/>
+
+            <input type="submit" value="Send">
+        </form>
+    </body>
+</html>
+}}}
+
+=Adding Contact Presence Information=
+Now that we've got messaging in place, we can take the next step and download our contact list.
+==Register Event Handlers==
+Just as we did when setting up the receive message functionality, we are registering event handlers to listen to when the contact list is delivered.
+
+{{{
+tbService.registerCallback('onGetContacts', buildContactsList);
+}}}
+
+==Building Our Application==
+===Listening for the Connect Event===
+Once we know that the service has connected, then we can request the contact list.
+
+{{{
+var serviceConnect = function() {
+    try {  
+        tbService.getContacts();
+    }
+    catch(err) {
+        errorHandler(err);
+    }
+};
+}}}
+
+===Handling the Contact List===
+The contact list has two components. The first is the JavaScript method used to listen for the contact list itself. The second is the HTML &lt;div&gt; in which the contact list will live. 
+
+JavaScript:
+{{{
+   var buildContactsList = function(contacts) {
+    var contactlist = document.getElementById('contactlist');        
+
+    var myContacts = JSON.parse(contacts);
+    for(var i = myContacts.length - 1; i >= 0; i--)
+    {
+        var myContact = myContacts[i];
+        contactlist.innerHTML += "<p>Screenname: "+myContact.screenName+"  =&gt; Online Status: "+myContact.online+ "<br/> JID: " + myContact.jid + "</p>";
+    }
+};
+}}}
+
+HTML:
+{{{
+<div id="contactlist"><p>Contact List<hr/></p></div>
+}}}
+
+==Final Code Example for Adding Contact List==
+{{{
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <script type="text/javascript" src="http://sandbox.tokbox.com/presence/"></script>
+        <script type="text/javascript">
+                var tbService = null;
+                
+                swfobject.addDomLoadEvent(function() {  
+                        TokBox.init('tokbox');
+
+                        tbService = TokBox.getIMConnection('tokbox');
+                        tbService.connect('576267', '1127-28e2d6431b2b9e8da322d61897293a8e');
+
+                        tbService.registerCallback('onReceiveMessage', receiveMessage);
+                        tbService.registerCallback('error', errorHandler);
+                        tbService.registerCallback('onConnect', serviceConnect);
+                        tbService.registerCallback('onGetContacts', buildContactsList);
+                });
+
+                var receiveMessage = function(userObj, msg) {
+                     alert(userObj + ": " + msg);
+                };
+
+                var errorHandler = function(error) {
+                     alert("There was an error: "+error);
+                };
+
+                var submitForm = function(form){
+                    try{
+
+                        tbService.sendMessage(form.username.value,form.msg.value);
+                    }
+                    catch(err) {
+                           errorHandler(err);
+                    }
+                };
+               
+                var serviceConnect = function() {
+                    try {
+    
+                        tbService.getContacts();
+                    }
+                    catch(err) {
+                        errorHandler(err);
+                    }
+                };
+
+                var buildContactsList = function(contacts) {
+                    var contactlist = document.getElementById('contactlist');       
+
+                    var myContacts = JSON.parse(contacts);
+                    for(var i = myContacts.length - 1; i >= 0; i--)
+                    {
+                        var myContact = myContacts[i];
+                        contactlist.innerHTML += "<p>Screenname: "+myContact.screenName+" =&gt; Online Status: "+myContact.online+ "<br/> JID: " + myContact.jid + "</p>";
+                    }
+                };
+        </script>
+    </head>
+    <body>
+        <p>This is a demonstration of the functionality which is available through the TokBox Presence Engine. 
+This demonstration implements the basic functionality of sending and receiving a text message.</p>
+        <hr/>
+        <form onsubmit="submitForm(this);return false;">
+            <label>To:</label> <input type="text" name="username" value="576267@jabber.dev.tokbox.com" /><br/>
+            <label>Message:</label><input type="text" name="msg" /><br/><br/>
+
+            <input type="submit" value="Send">
+        </form>
+        <hr/>
+        <div id="contactlist"><p>Contact List<hr/></p></div>
+    </body>
+</html>
+}}}
+
+=Managing the Contact List=
+_Note: You cannot add or remove friends through the TokBox Presence API. You must do this through the TokBox Platform API using one of the SDKs which can be found [http://code.google.com/p/tokboxapi/downloads/list here]. However, when contacts come online or offline, you will want to update the contact list, and that is what this section describes_
+
+==Register Event Listeners==
+We will need to register event listeners for the add and remove contacts events.
+
+{{{
+tbService.registerCallback('onAddContact', addedContact);
+tbService.registerCallback('onRemoveContact', removeContact);
+}}}
+
+==Building Our Application==
+===User Added to Contact List===
+
+
+===User Removed from Contact List===
+===Setting User Status===
