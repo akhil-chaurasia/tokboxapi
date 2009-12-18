@@ -1,0 +1,25 @@
+==Steps for the TokBox Developer API==
+====1. Check out sample applications + source code====
+  * [http://sandbox.tokbox.com/sampleApp/generator Call Generator]
+    * `[`[http://sandbox.tokbox.com/assets/API/videoparty.zip source code]`]`
+
+  * [http://sandbox.tokbox.com/sampleApp/guestbook Video GuestBook]  
+    * `[`[http://sandbox.tokbox.com/assets/API/weddingbook.zip source code]`]`
+
+  * [http://code.google.com/p/tokboxapi/wiki/SampleApplications All sample applications]
+
+====2. Get Your *Sandbox* Developer Key====
+Get a Sandbox developer key to develop and test applications against our Sandbox environment: 
+  * [http://sandbox.tokbox.com/view/platformkeys Sandbox Environment TokBox API Key Request Form]
+
+====3. Download the SDK for your preferred language====
+  * Please visit our [http://code.google.com/p/tokboxapi/downloads/list SDK Download] page
+  * Interested in another language? Let us know on the [http://groups.google.com/group/tokbox-developers TokBox developers mailing list]
+
+==What's Next?==
+You may find the following developer resources helpful:
+  * [http://code.google.com/p/tokboxapi/wiki/MainPage API Documentation]
+  * [http://groups.google.com/group/tokbox-developers Developer Mailing List]
+  * [http://code.google.com/p/tokboxapi/wiki/PHPTutorial Tutorial]
+====Release!====
+Once your application has matured, request a Production key by e-mailing us at <a href="mailto:bizdev@tokbox.com">bizdev@tokbox.com</a>
