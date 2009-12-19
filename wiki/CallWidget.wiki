@@ -118,3 +118,23 @@ Example code for this function:
           document.getElementById('tbx_call').addContent("http://www.youtube.com/watch?v=-59TlpmQE1c");
      }
 }}}
+
+=====participantLeftCall=====
+If you want to be notified when a participant leaves the chat, then use this function.
+
+Example code for this function:
+{{{
+     function participantLeftCall() {
+          alert('User just left chat');
+     }
+}}}
+
+=====participantJoinedCall=====
+If you want to be notified when a participant joins the chat, then use this function.
+
+Example code for this function:
+{{{
+     function participantJoinedCall() {
+          alert('User just joined chat');
+     }
+}}}
