@@ -6,8 +6,8 @@
   * Post a message to the the <a href="http://groups.google.com/group/tokbox-developers">TokBox-Developers group</a>.
 
 ==== How do I get an API Key? ====
-  * For your production environment, submit the <a href="http://developers.tokbox.com/index.php/Production_TokBox_API_Key_Request_Form>Production API Key request form</a>.
-  * For your development environment, submit the <a href="http://developers.tokbox.com/index.php/Sandbox_Environment_TokBox_API_Key_Request_Form">Sandbox API Key request form</a>.
+  * For your production environment, please send an email to <a href="mailto:bizdev@tokbox.com">bizdev@tokbox.com</a>.
+  * For your development environment, submit the <a href="http://sandbox.tokbox.com/view/platformkeys">Sandbox API Key request form</a>.
 
 ====Can I use TokBox on my site without programming / API Keys====
   * Absolutely. You can embed a Video Conference, Video Recorder, or Video Player the same way you would embed a YouTube video. Simply <a href="http://www.tokbox.com/#embed=">click here</a> to get started.
