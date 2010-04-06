@@ -93,10 +93,11 @@ public class TokBoxAPI extends BaseAPI {
 	 *@param string callerName Name of the caller creating the video chat.
 	 *@param string features Advanced features.
 	 *@param boolean persistent True if this callid should remain valid past the normal 4 day timeout
+	 *@param integer callInstanceId call_instance_id of the moderated call. If not passed, call is unmoderated
 	 *
 	 *@return Response string to API call
 	*/
-	public String createCall(String callerJabberId, String callerName, String features, String persistent) {
+	public String createCall(String callerJabberId, String callerName, String features, String persistent, String callInstanceId) {
 		String method = "POST";
 		String url = "/calls/create";
 		Map <String, String> paramList = new HashMap<String, String>();
@@ -104,6 +105,7 @@ public class TokBoxAPI extends BaseAPI {
 		paramList.put("callerName", callerName);
 		paramList.put("features", features);
 		paramList.put("persistent", persistent);
+		paramList.put("callInstanceId", callInstanceId);
 
 		return TB_Request(method, url, paramList);
 	}
@@ -116,18 +118,18 @@ public class TokBoxAPI extends BaseAPI {
 	 *AuthLevel: require_guest
 	 *
 	 *@param jid callerJabberId Jabber ID of the inviter who has initiated the call.
-	 *@param string calleeJabberId Jabber ID of the invitee who is being invited to the call
-	 *@param string call_id CallId returned from /calls/create API call
+	 *@param jid calleeJabberId Jabber ID of the invitee who is being invited to the call
+	 *@param string callId CallId returned from /calls/create API call
 	 *
 	 *@return Response string to API call
 	*/
-	public String createInvite(String callerJabberId, String calleeJabberId, String call_id) {
+	public String createInvite(String callerJabberId, String calleeJabberId, String callId) {
 		String method = "POST";
 		String url = "/calls/invite";
 		Map <String, String> paramList = new HashMap<String, String>();
 		paramList.put("callerJabberId", callerJabberId);
 		paramList.put("calleeJabberId", calleeJabberId);
-		paramList.put("call_id", call_id);
+		paramList.put("callId", callId);
 
 		return TB_Request(method, url, paramList);
 	}
@@ -137,15 +139,15 @@ public class TokBoxAPI extends BaseAPI {
 	 *
 	 *AuthLevel: require_guest
 	 *
-	 *@param string callid Callid returned from /call/create.
+	 *@param string callId Call ID returned from /call/create.
 	 *
 	 *@return Response string to API call
 	*/
-	public String validateCallID(String callid) {
+	public String validateCallID(String callId) {
 		String method = "POST";
 		String url = "/calls/validate";
 		Map <String, String> paramList = new HashMap<String, String>();
-		paramList.put("callid", callid);
+		paramList.put("callId", callId);
 
 		return TB_Request(method, url, paramList);
 	}
@@ -155,15 +157,15 @@ public class TokBoxAPI extends BaseAPI {
 	 *
 	 *AuthLevel: require_guest
 	 *
-	 *@param string callid Callid returned from /call/create.
+	 *@param string callId Call ID returned from /call/create.
 	 *
 	 *@return Response string to API call
 	*/
-	public String getCallInfo(String callid) {
+	public String getCallInfo(String callId) {
 		String method = "POST";
 		String url = "/calls/getCallInfo";
 		Map <String, String> paramList = new HashMap<String, String>();
-		paramList.put("callid", callid);
+		paramList.put("callId", callId);
 
 		return TB_Request(method, url, paramList);
 	}
@@ -173,47 +175,33 @@ public class TokBoxAPI extends BaseAPI {
 	 *
 	 *AuthLevel: require_guest
 	 *
-	 *@param string invite_id Invite ID returned from /calls/invite and used to find the server and call id info necessary to connect to a call.
+	 *@param string inviteId Invite ID returned from /calls/invite and used to find the server and call id info necessary to connect to a call.
 	 *
 	 *@return Response string to API call
 	*/
-	public String joinCall(String invite_id) {
+	public String joinCall(String inviteId) {
 		String method = "POST";
 		String url = "/calls/join";
 		Map <String, String> paramList = new HashMap<String, String>();
-		paramList.put("invite_id", invite_id);
+		paramList.put("inviteId", inviteId);
 
 		return TB_Request(method, url, paramList);
 	}
 
 	/**
-	 *Return a list of servers to run latency tests on. This should return a server from each region.
+	 *Resets a call's server in memcache in an attempt to allow call owners to restart their calls
 	 *
 	 *AuthLevel: require_guest
 	 *
+	 *@param string callId Call ID returned from /call/create.
 	 *
 	 *@return Response string to API call
 	*/
-	public String getTestServers() {
+	public String resetCall(String callId) {
 		String method = "POST";
-		String url = "/calls/getTestServers";
+		String url = "/calls/reset";
 		Map <String, String> paramList = new HashMap<String, String>();
-
-		return TB_Request(method, url, paramList);
-	}
-
-	/**
-	 *Returns the address of a server for recording vmails, and one for playback.
-	 *
-	 *AuthLevel: require_guest
-	 *
-	 *
-	 *@return Response string to API call
-	*/
-	public String getvmailserver() {
-		String method = "POST";
-		String url = "/vmail/getVMailServer";
-		Map <String, String> paramList = new HashMap<String, String>();
+		paramList.put("callId", callId);
 
 		return TB_Request(method, url, paramList);
 	}
@@ -223,7 +211,7 @@ public class TokBoxAPI extends BaseAPI {
 	 *
 	 *AuthLevel: require_guest
 	 *
-	 *@param string vmail_id VmailId of the recorded message that is being sent.
+	 *@param string vmailId VmailId of the recorded message that is being sent.
 	 *@param string tokboxRecipients Comma separated list of TokBox Jabber IDs who will receive the VMail.
 	 *@param string emailRecipients Comma separated list of valid email addresses who will receive the VMail.
 	 *@param jid senderJabberId Jabber ID of the VMail sender.
@@ -231,11 +219,11 @@ public class TokBoxAPI extends BaseAPI {
 	 *
 	 *@return Response string to API call
 	*/
-	public String sendVMail(String vmail_id, String tokboxRecipients, String emailRecipients, String senderJabberId, String text) {
+	public String sendVMail(String vmailId, String tokboxRecipients, String emailRecipients, String senderJabberId, String text) {
 		String method = "POST";
 		String url = "/vmail/send";
 		Map <String, String> paramList = new HashMap<String, String>();
-		paramList.put("vmail_id", vmail_id);
+		paramList.put("vmailId", vmailId);
 		paramList.put("tokboxRecipients", tokboxRecipients);
 		paramList.put("emailRecipients", emailRecipients);
 		paramList.put("senderJabberId", senderJabberId);
@@ -249,7 +237,7 @@ public class TokBoxAPI extends BaseAPI {
 	 *
 	 *AuthLevel: require_guest
 	 *
-	 *@param string vmail_id VmailId of the recorded message that is being sent.
+	 *@param string vmailId VmailId of the recorded message that is being sent.
 	 *@param string tokboxRecipients Comma separated list of TokBox Jabber IDs who will receive the VMail.
 	 *@param string emailRecipients Comma separated list of valid email addresses who will receive the VMail.
 	 *@param jid senderJabberId Jabber ID of the VMail sender.
@@ -257,11 +245,11 @@ public class TokBoxAPI extends BaseAPI {
 	 *
 	 *@return Response string to API call
 	*/
-	public String forwardVMail(String vmail_id, String tokboxRecipients, String emailRecipients, String senderJabberId, String text) {
+	public String forwardVMail(String vmailId, String tokboxRecipients, String emailRecipients, String senderJabberId, String text) {
 		String method = "POST";
 		String url = "/vmail/forward";
 		Map <String, String> paramList = new HashMap<String, String>();
-		paramList.put("vmail_id", vmail_id);
+		paramList.put("vmailId", vmailId);
 		paramList.put("tokboxRecipients", tokboxRecipients);
 		paramList.put("emailRecipients", emailRecipients);
 		paramList.put("senderJabberId", senderJabberId);
@@ -275,43 +263,17 @@ public class TokBoxAPI extends BaseAPI {
 	 *
 	 *AuthLevel: require_user
 	 *
-	 *@param string message_id Message ID of the VMail being removed from the feed.
+	 *@param string messageId Message ID of the VMail being removed from the feed.
 	 *@param string type Type of message to delete from the feed. {'vmailRecv', 'vmailSent','callEvent', 'vmailPostRecv','vmailPostPublic', 'other'}
 	 *
 	 *@return Response string to API call
 	*/
-	public String deleteVMail(String message_id, String type) {
+	public String deleteVMail(String messageId, String type) {
 		String method = "POST";
 		String url = "/vmail/delete";
 		Map <String, String> paramList = new HashMap<String, String>();
-		paramList.put("message_id", message_id);
+		paramList.put("messageId", messageId);
 		paramList.put("type", type);
-
-		return TB_Request(method, url, paramList);
-	}
-
-	/**
-	 *Post a public VMail to the public feed portion of Tokbox
-	 *
-	 *AuthLevel: require_user
-	 *
-	 *@param text vmail_id Vmail ID of the recorded message that is being posted on the public feed.
-	 *@param text scope Either {friends} or {public}. Defines the scope of who receives this public VMail post.
-	 *@param jid senderJabberId Jabber ID of the message sender.
-	 *@param text text Text of the vmail message.
-	 *@param integer templateId A reference to the template to apply to this vmail
-	 *
-	 *@return Response string to API call
-	*/
-	public String postPublicVMail(String vmail_id, String scope, String senderJabberId, String text, String templateId) {
-		String method = "POST";
-		String url = "/vmail/postPublic";
-		Map <String, String> paramList = new HashMap<String, String>();
-		paramList.put("vmail_id", vmail_id);
-		paramList.put("scope", scope);
-		paramList.put("senderJabberId", senderJabberId);
-		paramList.put("text", text);
-		paramList.put("templateId", templateId);
 
 		return TB_Request(method, url, paramList);
 	}
@@ -321,15 +283,15 @@ public class TokBoxAPI extends BaseAPI {
 	 *
 	 *AuthLevel: require_guest
 	 *
-	 *@param string message_id Message ID of the VMail being marked as read
+	 *@param string messageId Message ID of the VMail being marked as read
 	 *
 	 *@return Response string to API call
 	*/
-	public String markVmailRead(String message_id) {
+	public String markVmailRead(String messageId) {
 		String method = "POST";
 		String url = "/vmail/markasviewed";
 		Map <String, String> paramList = new HashMap<String, String>();
-		paramList.put("message_id", message_id);
+		paramList.put("messageId", messageId);
 
 		return TB_Request(method, url, paramList);
 	}
@@ -339,15 +301,33 @@ public class TokBoxAPI extends BaseAPI {
 	 *
 	 *AuthLevel: require_guest
 	 *
-	 *@param string message_id Message ID of the video mail being retrieved.
+	 *@param string messageId Message ID of the video mail being retrieved.
 	 *
 	 *@return Response string to API call
 	*/
-	public String getVMail(String message_id) {
+	public String getVMail(String messageId) {
 		String method = "POST";
 		String url = "/vmail/getVmail";
 		Map <String, String> paramList = new HashMap<String, String>();
-		paramList.put("message_id", message_id);
+		paramList.put("messageId", messageId);
+
+		return TB_Request(method, url, paramList);
+	}
+
+	/**
+	 *Returns all messages sent or recieved by user containing a specific content id.
+	 *
+	 *AuthLevel: require_user
+	 *
+	 *@param string contentId Content ID of the video mail being retrieved.
+	 *
+	 *@return Response string to API call
+	*/
+	public String getMessagesWithContent(String contentId) {
+		String method = "POST";
+		String url = "/vmail/getMessages";
+		Map <String, String> paramList = new HashMap<String, String>();
+		paramList.put("contentId", contentId);
 
 		return TB_Request(method, url, paramList);
 	}
@@ -357,63 +337,37 @@ public class TokBoxAPI extends BaseAPI {
 	 *
 	 *AuthLevel: require_guest
 	 *
-	 *@param string message_id MessageId of the video post
+	 *@param string messageId MessageId of the video post
 	 *@param integer numcomments Number of comments to return
 	 *
 	 *@return Response string to API call
 	*/
-	public String getVideoPost(String message_id, String numcomments) {
+	public String getVideoPost(String messageId, String numcomments) {
 		String method = "POST";
 		String url = "/vmail/getPost";
 		Map <String, String> paramList = new HashMap<String, String>();
-		paramList.put("message_id", message_id);
+		paramList.put("messageId", messageId);
 		paramList.put("numcomments", numcomments);
 
 		return TB_Request(method, url, paramList);
 	}
 
 	/**
-	 *Add a comment on the end of the specified post
+	 *Returns a list of all the comments associated with a given message ID
 	 *
 	 *AuthLevel: require_guest
 	 *
-	 *@param jid posterjabberId The Jabber ID of the person making the post
-	 *@param string vmailmessageid Message ID of the post that this comment refers to
-	 *@param string vmailcontentid If this is a video post then this is the VMail ID of the video.
-	 *@param string commenttext The text component of the comment
-	 *@param integer templateId A reference to the template to apply to this vmail
-	 *
-	 *@return Response string to API call
-	*/
-	public String addComment(String posterjabberId, String vmailmessageid, String vmailcontentid, String commenttext, String templateId) {
-		String method = "POST";
-		String url = "/vmail/addcomment";
-		Map <String, String> paramList = new HashMap<String, String>();
-		paramList.put("posterjabberId", posterjabberId);
-		paramList.put("vmailmessageid", vmailmessageid);
-		paramList.put("vmailcontentid", vmailcontentid);
-		paramList.put("commenttext", commenttext);
-		paramList.put("templateId", templateId);
-
-		return TB_Request(method, url, paramList);
-	}
-
-	/**
-	 *Returns a list of all the comments associated with a given message_id
-	 *
-	 *AuthLevel: require_guest
-	 *
-	 *@param string message_id The Message ID of the post against which comments are being collected.
+	 *@param string messageId The Message ID of the post against which comments are being collected.
 	 *@param integer start The comment from which to start returning results.
 	 *@param integer count The number of comments to return.
 	 *
 	 *@return Response string to API call
 	*/
-	public String getAllPostComments(String message_id, String start, String count) {
+	public String getAllPostComments(String messageId, String start, String count) {
 		String method = "POST";
 		String url = "/vmail/getcomments";
 		Map <String, String> paramList = new HashMap<String, String>();
-		paramList.put("message_id", message_id);
+		paramList.put("messageId", messageId);
 		paramList.put("start", start);
 		paramList.put("count", count);
 
@@ -474,16 +428,16 @@ public class TokBoxAPI extends BaseAPI {
 	 *AuthLevel: require_user
 	 *
 	 *@param jid jabberId Jabber ID of the recipient of the call event upon which is being deleted.
-	 *@param string invite_id Invite ID of the call upon which is being acted.
+	 *@param string inviteId Invite ID of the call upon which is being acted.
 	 *
 	 *@return Response string to API call
 	*/
-	public String deleteCallEvent(String jabberId, String invite_id) {
+	public String deleteCallEvent(String jabberId, String inviteId) {
 		String method = "POST";
 		String url = "/callevent/delete";
 		Map <String, String> paramList = new HashMap<String, String>();
 		paramList.put("jabberId", jabberId);
-		paramList.put("invite_id", invite_id);
+		paramList.put("inviteId", inviteId);
 
 		return TB_Request(method, url, paramList);
 	}
@@ -494,16 +448,16 @@ public class TokBoxAPI extends BaseAPI {
 	 *AuthLevel: require_user
 	 *
 	 *@param jid jabberId Jabber ID of the recipient of the call event which is being marked viewed.
-	 *@param string invite_id Invite ID of the call upon which is being acted.
+	 *@param string inviteId Invite ID of the call upon which is being acted.
 	 *
 	 *@return Response string to API call
 	*/
-	public String markCallEventViewed(String jabberId, String invite_id) {
+	public String markCallEventViewed(String jabberId, String inviteId) {
 		String method = "POST";
 		String url = "/callevent/markasviewed";
 		Map <String, String> paramList = new HashMap<String, String>();
 		paramList.put("jabberId", jabberId);
-		paramList.put("invite_id", invite_id);
+		paramList.put("inviteId", inviteId);
 
 		return TB_Request(method, url, paramList);
 	}

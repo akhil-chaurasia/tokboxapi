@@ -169,9 +169,9 @@ namespace TokBox
 
             paramList.Add("callerJabberId", callerJabberId);
 
-            paramList.Add("calleeJabberId'", calleeJabberId);
+            paramList.Add("calleeJabberId", calleeJabberId);
 
-            paramList.Add("call_id", call_id);
+            paramList.Add("callId", call_id);
 
 
 
@@ -203,7 +203,7 @@ namespace TokBox
 
             Dictionary<string, string> paramList = new Dictionary<string, string>();
 
-            paramList.Add("invite_id", invite_id);
+            paramList.Add("inviteId", invite_id);
 
 
 
@@ -239,7 +239,7 @@ namespace TokBox
 
             Dictionary<string, string> paramList = new Dictionary<string, string>();
 
-            paramList.Add("vmail_id", vmail_id);
+            paramList.Add("vmailId", vmail_id);
 
             if (tokboxRecipients != null) paramList.Add("tokboxRecipients", tokboxRecipients);
 
@@ -283,7 +283,7 @@ namespace TokBox
 
             Dictionary<string, string> paramList = new Dictionary<string, string>();
 
-            paramList.Add("vmail_id", vmail_id);
+            paramList.Add("vmailId", vmail_id);
 
             if (tokboxRecipients != null) paramList.Add("tokboxRecipients", tokboxRecipients);
 
@@ -324,7 +324,7 @@ namespace TokBox
 
             Dictionary<string, string> paramList = new Dictionary<string, string>();
 
-            paramList.Add("message_id", message_id);
+            paramList.Add("messageId", message_id);
 
             paramList.Add("type", type);
 
@@ -360,7 +360,7 @@ namespace TokBox
 
             Dictionary<string, string> paramList = new Dictionary<string, string>();
 
-            paramList.Add("vmail_id", vmail_id);
+            paramList.Add("vmailId", vmail_id);
 
             paramList.Add("senderJabberId", senderJabberId);
 
@@ -398,7 +398,7 @@ namespace TokBox
 
             Dictionary<string, string> paramList = new Dictionary<string, string>();
 
-            paramList.Add("vmail_id", vmail_id);
+            paramList.Add("vmailId", vmail_id);
 
             paramList.Add("senderJabberId", senderJabberId);
 
@@ -410,49 +410,6 @@ namespace TokBox
 
         }
 
-
-
-        /**
-         *Post a public VMail to the public feed portion of Tokbox
-         *
-         *AuthLevel: require_user
-         *
-         *@param string vmail_id Vmail ID of the recorded message that is being posted on the public feed.
-         *@param string scope Either {friends} or {public}. Defines the scope of who receives this public VMail post.
-         *@param JID senderJabberId Jabber ID of the message sender.
-         *@param string text Text of the vmail message.
-         *
-         *@return Response string to API call
-        */
-
-        public string PostPublicVMail(string text, string senderJabberId, string scope, string vmail_id)
-
-        {
-
-            string method = "POST";
-
-            string url = "/vmail/postPublic";
-
-
-
-            Dictionary<string, string> paramList = new Dictionary<string, string>();
-
-            paramList.Add("vmail_id", vmail_id);
-
-            paramList.Add("scope", scope);
-
-            paramList.Add("senderJabberId", senderJabberId);
-
-            paramList.Add("text", text);
-
-
-
-            return TB_Request(method, url, paramList);
-
-        }
-
-
-
         /**
          *Mark a VMail read. This triggers a notice to the sender. Returns the number of unread feed items
          *
@@ -462,28 +419,19 @@ namespace TokBox
          *
          *@return Response string to API call
         */
-
         public string MarkVmailRead(string message_id)
-
         {
 
             string method = "POST";
 
             string url = "/vmail/markasviewed";
 
-
-
             Dictionary<string, string> paramList = new Dictionary<string, string>();
 
-            paramList.Add("message_id", message_id);
-
-
+            paramList.Add("messageId", message_id);
 
             return TB_Request(method, url, paramList);
-
         }
-
-
 
         /**
          *Returns information about a VMail which lets you access the message.
@@ -496,26 +444,41 @@ namespace TokBox
         */
 
         public string GetVMail(string message_id)
-
         {
 
             string method = "POST";
 
             string url = "/vmail/getVmail";
 
-
-
             Dictionary<string, string> paramList = new Dictionary<string, string>();
 
-            paramList.Add("message_id", message_id);
-
-
+            paramList.Add("messageId", message_id);
 
             return TB_Request(method, url, paramList);
-
         }
 
+		/**
+		 * Get the vmail information from a content ID
+		 *
+		 * exampe usage:
+		 *
+		 * var api = new TokBoxAPI(API_Config.PARTNER_KEY, API_Config.PARTNER_SECRET);
+		 * api.SetJabberId("XXXXXX@jabber.dev.tokbox.com");
+		 * api.SetSecret("XXXXXXXXXXXXXXXXXXXXXX"); // Check the query string of the callback page of the WhoAmI application to know your secret value
+		 * string result = api.GetMessagesWithContent("XXXXXXX"); // Some content id 
+		 */
+		public string GetMessagesWithContent(string contentId)
+		{
+			string method = "POST";
 
+			string url = "/vmail/getMessages";
+
+			Dictionary<string, string> paramList = new Dictionary<string, string>();
+
+			paramList.Add("contentId", contentId);
+
+			return TB_Request(method, url, paramList);
+		}
 
         /**
          *Return information about a video post including comments
@@ -540,58 +503,12 @@ namespace TokBox
 
             Dictionary<string, string> paramList = new Dictionary<string, string>();
 
-            paramList.Add("message_id", message_id);
+            paramList.Add("messageId", message_id);
 
             paramList.Add("numcomments", numcomments);
 
-
-
             return TB_Request(method, url, paramList);
-
         }
-
-
-
-        /**
-         *Add a comment on the end of the specified post
-         *
-         *AuthLevel: require_guest
-         *
-         *@param JID posterjabberId The Jabber ID of the person making the post
-         *@param string vmailmessageid Message ID of the post that this comment refers to
-         *@param string vmailcontentid If this is a video post then this is the VMail ID of the video.
-         *@param string commenttext The text component of the comment
-         *
-         *@return Response string to API call
-        */
-
-        public string AddComment(string commenttext, string vmailmessageid, string posterjabberId, string vmailcontentid)
-
-        {
-
-            string method = "POST";
-
-            string url = "/vmail/addcomment";
-
-
-
-            Dictionary<string, string> paramList = new Dictionary<string, string>();
-
-            paramList.Add("posterjabberId", posterjabberId);
-
-            paramList.Add("vmailmessageid", vmailmessageid);
-
-            if (vmailcontentid != null) paramList.Add("vmailcontentid", vmailcontentid);
-
-            paramList.Add("commenttext", commenttext);
-
-
-
-            return TB_Request(method, url, paramList);
-
-        }
-
-
 
         /**
          *Returns a list of all the comments associated with a given message_id
@@ -617,7 +534,7 @@ namespace TokBox
 
             Dictionary<string, string> paramList = new Dictionary<string, string>();
 
-            paramList.Add("message_id", message_id);
+            paramList.Add("messageId", message_id);
 
             if (start != null) paramList.Add("start", start);
 
@@ -735,7 +652,7 @@ namespace TokBox
 
             paramList.Add("jabberId", jabberId);
 
-            paramList.Add("invite_id", invite_id);
+            paramList.Add("inviteId", invite_id);
 
 
 
@@ -770,7 +687,7 @@ namespace TokBox
 
             paramList.Add("jabberId", jabberId);
 
-            paramList.Add("invite_id", invite_id);
+            paramList.Add("inviteId", invite_id);
 
 
 

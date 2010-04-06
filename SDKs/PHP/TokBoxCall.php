@@ -1,22 +1,10 @@
 <?php
 
 require_once('TokBoxApi.php');
-require_once('TokBoxExceptions.php');
 
 class TokBoxCall {
 
 	public function createCall(TokBoxApi $callApiObj, $persistent='false', $displayname='Guest') {
-		$isValid = $callApiObj->validateAccessToken($callApiObj->getSecret(), $callApiObj->getJabberId());		
-
-		if(!$isValid)
-			throw new Exception("Unable to connect to ".API_Config::API_SERVER.". Please check to make sure API calls are executing properly");
-
-		$isValidXml = simplexml_load_string($isValid, 'SimpleXMLElement', LIBXML_NOCDATA);
-
-		if($isValidXml->validateAccessToken->isValid == 'false') {
-			throw new NotLoggedInException("The user is not properly validated");
-		}
-
 		$createCall = $callApiObj->createCall($displayname, $callApiObj->getJabberId(), "", $persistent);
 
 		if(!$createCall)
@@ -41,7 +29,7 @@ class TokBoxCall {
 
 		$createInvite = $callApiObj->createInvite($callId, $calleeJid, $callApiObj->getJabberId());
 
-		if(!createInvite)
+		if(!$createInvite)
 			throw new Exception("Unable to connect to ".API_Config::API_SERVER.". Please check to make sure API calls are executing properly");
 
 		$createInviteXml = simplexml_load_string($createInvite, 'SimpleXMLElement', LIBXML_NOCDATA);
@@ -50,20 +38,9 @@ class TokBoxCall {
 	}
 
 	public static function joinCall(TokBoxApi $callApiObj, $inviteId) {
-		$isValid = $callApiObj->validateAccessToken($callApiObj->getSecret(), $callApiObj->getJabberId());
-
-		if(!$isValid)
-			throw new Exception("Unable to connect to ".API_Config::API_SERVER.". Please check to make sure API calls are executing properly");
-
-		$isValidXml = simplexml_load_string($isValid, 'SimpleXMLElement', LIBXML_NOCDATA);
-
-		if($isValidXml->validateAccessToken->isValid == 'false') {
-			throw new NotLoggedInException("The user is not properly validated");
-		}
-
 		$joinCall = $callApiObj->joinCall($inviteId);
 		
-		if(!joinCall)
+		if(!$joinCall)
 			throw new Exception("Unable to connect to ".API_Config::API_SERVER.". Please check to make sure API calls are executing properly");
 
 		$joinCallXml = simplexml_load_string($joinCall, 'SimpleXMLElement', LIBXML_NOCDATA);

@@ -1,9 +1,38 @@
-﻿/* * Copyright (c) 2008 Syedur Islam * Permission is hereby granted, free of charge, to any person obtaining a copy * of this software and associated documentation files (the "Software"), to deal * in the Software without restriction, including without limitation the rights * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell * copies of the Software, and to permit persons to whom the Software is * furnished to do so, subject to the following conditions: *  * The above copyright notice and this permission notice shall be included in * all copies or substantial portions of the Software. * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN * THE SOFTWARE. *		 *************************************
- * *       TokBox Base API             * * ************************************* * * Original Java Code by Melih Onvural, August 2008
- * Converted to C# by Syedur Islam, November 2008
- *
- *
- */
+﻿/*
+ * Copyright (c) 2008 Syedur Islam
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ *		
+ *************************************
+
+ *
+ *       TokBox Base API             *
+ *
+ *************************************
+ *
+ * Original Java Code by Melih Onvural, August 2008
+
+ * Converted to C# by Syedur Islam, November 2008
+
+ *
+
+ *
+
+ */
 
 using System;
 using System.Collections;
@@ -24,7 +53,7 @@ namespace TokBox
         private string jabberId;
 
         private const string version = "1.0.0";
-        private int sigMethod = BaseAPI.SIMPLE_MD5;
+        private const int sigMethod = SIMPLE_MD5;
 
         public const int SIMPLE_MD5 = 1;
         public const int HMAC_SHA1 = 2;
@@ -69,27 +98,32 @@ namespace TokBox
 
         public string SigMethodText()
         {
-            return this.sigMethod == BaseAPI.SIMPLE_MD5 ? "SIMPLE-MD5" : "HMAC-SHA1";
+            return sigMethod == SIMPLE_MD5 ? "SIMPLE-MD5" : "HMAC-SHA1";
         }
 
         protected string TB_Request(string method, string apiUrl, Dictionary<string, string> paramList)
         {
-            StringBuilder returnString = new StringBuilder();
-
-            string reqString = API_Config.API_SERVER + BaseAPI.API_SERVER_METHODS_URL + apiUrl;
+            string reqString = API_Config.API_SERVER + API_SERVER_METHODS_URL + apiUrl;
 
             WebRequest request = WebRequest.Create(reqString);
             try
             {
                 string nonce = this.GenerateNonce();
-                				//string timestamp = DateTime.Now.Millisecond.ToString();				//generate a unix timestamp -- modified by Volkan Özçelik @2009-01-09,21:36,GMT+2				TimeSpan span = DateTime.Now - (new DateTime(1970, 1, 1, 0, 0, 0, 0));				string timestamp = "" + Convert.ToInt64(span.TotalSeconds);				string signedSig = this.BuildSignedRequest(method, reqString, nonce, timestamp, paramList);
-				StringBuilder dataString = new StringBuilder();
+                
+				//string timestamp = DateTime.Now.Millisecond.ToString();
+				//generate a unix timestamp -- modified by Volkan Özçelik @2009-01-09,21:36,GMT+2
+				TimeSpan span = DateTime.Now - (new DateTime(1970, 1, 1, 0, 0, 0, 0));
+				string timestamp = "" + Convert.ToInt64(span.TotalSeconds);
+
+				string signedSig = this.BuildSignedRequest(method, reqString, nonce, timestamp, paramList);
+
+				StringBuilder dataString = new StringBuilder();
 
                 foreach (KeyValuePair<string, string> kvp in paramList)
                 {
                     dataString.Append(HttpUtility.UrlEncode(kvp.Key, Encoding.UTF8));
                     dataString.Append("=");
-                    dataString.Append(HttpUtility.UrlEncode(kvp.Value, Encoding.UTF8).Replace("\\+", "%20"));
+                    dataString.Append(HttpUtility.UrlEncode(kvp.Value, Encoding.UTF8).Replace("+", "%20"));
                     dataString.Append("&");
                 }
 
@@ -98,10 +132,10 @@ namespace TokBox
                 dataString.Append("_AUTHORIZATION=");
 
                 //Adding the oauth_partner_key to the _AUTHORIZATION 
-                dataString.Append("oauth_partner_key=\"").Append(HttpUtility.UrlEncode(this.partnerKey, Encoding.UTF8)).Append("\",");
+                dataString.Append("oauth_partner_key=\"").Append(HttpUtility.UrlEncode(partnerKey, Encoding.UTF8)).Append("\",");
 
                 //Adding the oauth_signature_method to the _AUTHORIZATION
-                dataString.Append("oauth_signature_method=\"").Append(HttpUtility.UrlEncode(this.SigMethodText(), Encoding.UTF8)).Append("\",");
+                dataString.Append("oauth_signature_method=\"").Append(HttpUtility.UrlEncode(SigMethodText(), Encoding.UTF8)).Append("\",");
 
                 //Adding the oauth_timestamp to the _AUTHORIZATION
                 dataString.Append("oauth_timestamp=\"").Append(HttpUtility.UrlEncode(timestamp, Encoding.UTF8)).Append("\",");
@@ -163,16 +197,16 @@ namespace TokBox
             paramList.Add("tokbox_jabberid", this.jabberId);
 
             StringBuilder requestString = new StringBuilder();
-            requestString.Append(method).Append("&").Append(uri).Append("&").Append(this.GenerateRequestString(paramList)).Append(this.secret);
+            requestString.Append(method).Append("&").Append(uri).Append("&").Append(GenerateRequestString(paramList)).Append(secret);
 
-            Console.WriteLine("Request string is: " + requestString.ToString());
+            Console.WriteLine("Request string is: " + requestString);
 
-            switch (this.sigMethod)
+            switch (sigMethod)
             {
-                case BaseAPI.SIMPLE_MD5:
-                    signedString = this.MD5Hash(requestString.ToString());
+                case SIMPLE_MD5:
+                    signedString = MD5Hash(requestString.ToString());
                     break;
-                case BaseAPI.HMAC_SHA1:
+                case HMAC_SHA1:
                     //not currently implemented
                     break;
                 default:
@@ -188,18 +222,18 @@ namespace TokBox
         {
             List<string> encodedParamList = new List<string>();
 
-            string encodedKey = string.Empty;
-            string encodedValue = string.Empty;
-
             foreach (KeyValuePair<string, string> kvp in paramList)
             {
                 if (!string.IsNullOrEmpty(kvp.Key) && !string.IsNullOrEmpty(kvp.Value))
                 {
                     StringBuilder encodedString = new StringBuilder();
 
-                    encodedKey = HttpUtility.UrlEncode(kvp.Key, Encoding.UTF8);
-                    encodedValue = HttpUtility.UrlEncode(kvp.Value, Encoding.UTF8).Replace("\\+", "%20"										).Replace("%3a", "%3A").Replace("%2f","%2F");
-                    encodedString.Append(encodedKey).Append("=").Append(encodedValue);
+                    string encodedKey = HttpUtility.UrlEncode(kvp.Key, Encoding.UTF8);
+                    string encodedValue = HttpUtility.UrlEncode(kvp.Value, Encoding.UTF8)
+                        .Replace("+", "%20")
+                        .Replace("%3a", "%3A")
+                        .Replace("%2f","%2F");
+                    encodedString.AppendFormat("{0}={1}", encodedKey, encodedValue);
 
                     encodedParamList.Add(encodedString.ToString());
                 }
@@ -214,10 +248,10 @@ namespace TokBox
         private string GenerateNonce()
         {
             StringBuilder nonce = new StringBuilder(16);
-            int length = 16;
+            const int length = 16;
             Random generator = new Random();
 
-            string seed = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const string seed = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
             int seedLength = seed.Length - 1;
 
             for (int i = 0; i < length; i++)
@@ -225,7 +259,7 @@ namespace TokBox
                 nonce.Append(seed[generator.Next(seedLength)]);
             }
 
-            Console.WriteLine("Nonce: " + nonce.ToString());
+            Console.WriteLine("Nonce: " + nonce);
             return nonce.ToString();
         }
 
@@ -240,7 +274,7 @@ namespace TokBox
                 sb.Append(data[i].ToString("x2"));
             }
 
-            Console.WriteLine("MD5 Hash: " + sb.ToString());
+            Console.WriteLine("MD5 Hash: " + sb);
             return sb.ToString();
         }
     }
