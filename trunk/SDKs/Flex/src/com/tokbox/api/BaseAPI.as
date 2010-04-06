@@ -109,10 +109,6 @@ package com.tokbox.api {
 			service.addEventListener(ResultEvent.RESULT, RequestSuccessHandler);
 			service.addEventListener(FaultEvent.FAULT, faultHandler);
 
-			for (var value:String in paramsList) {
-				var temp:String = "paramList['"+value+"'] = "+paramsList[value];
-			}
-
 			service.send(paramsList);
 		}
 

@@ -91,10 +91,11 @@ final class TokBoxApi extends BaseApi {
 	 *@param string $callerName Name of the caller creating the video chat.
 	 *@param string $features Advanced features.
 	 *@param boolean $persistent True if this callid should remain valid past the normal 4 day timeout
+	 *@param integer $callInstanceId call_instance_id of the moderated call. If not passed, call is unmoderated
 	 *
 	 *@return Response string to API call
 	*/
-	public function createCall($callerName, $callerJabberId, $features = null, $persistent = null) {
+	public function createCall($callerName, $callerJabberId, $features = null, $persistent = null, $callInstanceId = null) {
 		$method = "POST";
 		$url = "/calls/create";
 		$paramList = array();
@@ -102,6 +103,7 @@ final class TokBoxApi extends BaseApi {
 		$paramList['callerName'] = $callerName;
 		if($features !== null) $paramList['features'] = $features;
 		if($persistent !== null) $paramList['persistent'] = $persistent;
+		if($callInstanceId !== null) $paramList['callInstanceId'] = $callInstanceId;
 		return $this->TB_Request($method, $url, $paramList);
 	}
 
@@ -114,18 +116,18 @@ final class TokBoxApi extends BaseApi {
 	 *AuthLevel: require_guest
 	 *
 	 *@param jid $callerJabberId Jabber ID of the inviter who has initiated the call.
-	 *@param string $calleeJabberId Jabber ID of the invitee who is being invited to the call
-	 *@param string $call_id CallId returned from /calls/create API call
+	 *@param jid $calleeJabberId Jabber ID of the invitee who is being invited to the call
+	 *@param string $callId CallId returned from /calls/create API call
 	 *
 	 *@return Response string to API call
 	*/
-	public function createInvite($call_id, $calleeJabberId, $callerJabberId) {
+	public function createInvite($callId, $calleeJabberId, $callerJabberId) {
 		$method = "POST";
 		$url = "/calls/invite";
 		$paramList = array();
 		$paramList['callerJabberId'] = $callerJabberId;
 		$paramList['calleeJabberId'] = $calleeJabberId;
-		$paramList['call_id'] = $call_id;
+		$paramList['callId'] = $callId;
 		return $this->TB_Request($method, $url, $paramList);
 	}
 
@@ -135,15 +137,15 @@ final class TokBoxApi extends BaseApi {
 	 *
 	 *AuthLevel: require_guest
 	 *
-	 *@param string $callid Callid returned from /call/create.
+	 *@param string $callId Call ID returned from /call/create.
 	 *
 	 *@return Response string to API call
 	*/
-	public function validateCallID($callid) {
+	public function validateCallID($callId) {
 		$method = "POST";
 		$url = "/calls/validate";
 		$paramList = array();
-		$paramList['callid'] = $callid;
+		$paramList['callId'] = $callId;
 		return $this->TB_Request($method, $url, $paramList);
 	}
 
@@ -153,15 +155,15 @@ final class TokBoxApi extends BaseApi {
 	 *
 	 *AuthLevel: require_guest
 	 *
-	 *@param string $callid Callid returned from /call/create.
+	 *@param string $callId Call ID returned from /call/create.
 	 *
 	 *@return Response string to API call
 	*/
-	public function getCallInfo($callid) {
+	public function getCallInfo($callId) {
 		$method = "POST";
 		$url = "/calls/getCallInfo";
 		$paramList = array();
-		$paramList['callid'] = $callid;
+		$paramList['callId'] = $callId;
 		return $this->TB_Request($method, $url, $paramList);
 	}
 
@@ -171,15 +173,33 @@ final class TokBoxApi extends BaseApi {
 	 *
 	 *AuthLevel: require_guest
 	 *
-	 *@param string $invite_id Invite ID returned from /calls/invite and used to find the server and call id info necessary to connect to a call.
+	 *@param string $inviteId Invite ID returned from /calls/invite and used to find the server and call id info necessary to connect to a call.
 	 *
 	 *@return Response string to API call
 	*/
-	public function joinCall($invite_id) {
+	public function joinCall($inviteId) {
 		$method = "POST";
 		$url = "/calls/join";
 		$paramList = array();
-		$paramList['invite_id'] = $invite_id;
+		$paramList['inviteId'] = $inviteId;
+		return $this->TB_Request($method, $url, $paramList);
+	}
+
+
+	/**
+	 *Resets a call's server in memcache in an attempt to allow call owners to restart their calls
+	 *
+	 *AuthLevel: require_guest
+	 *
+	 *@param string $callId Call ID returned from /call/create.
+	 *
+	 *@return Response string to API call
+	*/
+	public function resetCall($callId) {
+		$method = "POST";
+		$url = "/calls/reset";
+		$paramList = array();
+		$paramList['callId'] = $callId;
 		return $this->TB_Request($method, $url, $paramList);
 	}
 
@@ -189,7 +209,7 @@ final class TokBoxApi extends BaseApi {
 	 *
 	 *AuthLevel: require_guest
 	 *
-	 *@param string $vmail_id VmailId of the recorded message that is being sent.
+	 *@param string $vmailId VmailId of the recorded message that is being sent.
 	 *@param string $tokboxRecipients Comma separated list of TokBox Jabber IDs who will receive the VMail.
 	 *@param string $emailRecipients Comma separated list of valid email addresses who will receive the VMail.
 	 *@param jid $senderJabberId Jabber ID of the VMail sender.
@@ -197,11 +217,11 @@ final class TokBoxApi extends BaseApi {
 	 *
 	 *@return Response string to API call
 	*/
-	public function sendVMail($senderJabberId, $vmail_id, $tokboxRecipients = null, $emailRecipients = null, $text = null) {
+	public function sendVMail($senderJabberId, $vmailId, $tokboxRecipients = null, $emailRecipients = null, $text = null) {
 		$method = "POST";
 		$url = "/vmail/send";
 		$paramList = array();
-		$paramList['vmail_id'] = $vmail_id;
+		$paramList['vmailId'] = $vmailId;
 		if($tokboxRecipients !== null) $paramList['tokboxRecipients'] = $tokboxRecipients;
 		if($emailRecipients !== null) $paramList['emailRecipients'] = $emailRecipients;
 		$paramList['senderJabberId'] = $senderJabberId;
@@ -215,7 +235,7 @@ final class TokBoxApi extends BaseApi {
 	 *
 	 *AuthLevel: require_guest
 	 *
-	 *@param string $vmail_id VmailId of the recorded message that is being sent.
+	 *@param string $vmailId VmailId of the recorded message that is being sent.
 	 *@param string $tokboxRecipients Comma separated list of TokBox Jabber IDs who will receive the VMail.
 	 *@param string $emailRecipients Comma separated list of valid email addresses who will receive the VMail.
 	 *@param jid $senderJabberId Jabber ID of the VMail sender.
@@ -223,11 +243,11 @@ final class TokBoxApi extends BaseApi {
 	 *
 	 *@return Response string to API call
 	*/
-	public function forwardVMail($senderJabberId, $vmail_id, $tokboxRecipients = null, $emailRecipients = null, $text = null) {
+	public function forwardVMail($senderJabberId, $vmailId, $tokboxRecipients = null, $emailRecipients = null, $text = null) {
 		$method = "POST";
 		$url = "/vmail/forward";
 		$paramList = array();
-		$paramList['vmail_id'] = $vmail_id;
+		$paramList['vmailId'] = $vmailId;
 		if($tokboxRecipients !== null) $paramList['tokboxRecipients'] = $tokboxRecipients;
 		if($emailRecipients !== null) $paramList['emailRecipients'] = $emailRecipients;
 		$paramList['senderJabberId'] = $senderJabberId;
@@ -241,43 +261,17 @@ final class TokBoxApi extends BaseApi {
 	 *
 	 *AuthLevel: require_user
 	 *
-	 *@param string $message_id Message ID of the VMail being removed from the feed.
+	 *@param string $messageId Message ID of the VMail being removed from the feed.
 	 *@param string $type Type of message to delete from the feed. {'vmailRecv', 'vmailSent','callEvent', 'vmailPostRecv','vmailPostPublic', 'other'}
 	 *
 	 *@return Response string to API call
 	*/
-	public function deleteVMail($type, $message_id) {
+	public function deleteVMail($type, $messageId) {
 		$method = "POST";
 		$url = "/vmail/delete";
 		$paramList = array();
-		$paramList['message_id'] = $message_id;
+		$paramList['messageId'] = $messageId;
 		$paramList['type'] = $type;
-		return $this->TB_Request($method, $url, $paramList);
-	}
-
-
-	/**
-	 *Post a public VMail to the public feed portion of Tokbox
-	 *
-	 *AuthLevel: require_user
-	 *
-	 *@param text $vmail_id Vmail ID of the recorded message that is being posted on the public feed.
-	 *@param text $scope Either {friends} or {public}. Defines the scope of who receives this public VMail post.
-	 *@param jid $senderJabberId Jabber ID of the message sender.
-	 *@param text $text Text of the vmail message.
-	 *@param integer $templateId A reference to the template to apply to this vmail
-	 *
-	 *@return Response string to API call
-	*/
-	public function postPublicVMail($text, $senderJabberId, $scope, $vmail_id, $templateId = null) {
-		$method = "POST";
-		$url = "/vmail/postPublic";
-		$paramList = array();
-		$paramList['vmail_id'] = $vmail_id;
-		$paramList['scope'] = $scope;
-		$paramList['senderJabberId'] = $senderJabberId;
-		$paramList['text'] = $text;
-		if($templateId !== null) $paramList['templateId'] = $templateId;
 		return $this->TB_Request($method, $url, $paramList);
 	}
 
@@ -287,15 +281,15 @@ final class TokBoxApi extends BaseApi {
 	 *
 	 *AuthLevel: require_guest
 	 *
-	 *@param string $message_id Message ID of the VMail being marked as read
+	 *@param string $messageId Message ID of the VMail being marked as read
 	 *
 	 *@return Response string to API call
 	*/
-	public function markVmailRead($message_id) {
+	public function markVmailRead($messageId) {
 		$method = "POST";
 		$url = "/vmail/markasviewed";
 		$paramList = array();
-		$paramList['message_id'] = $message_id;
+		$paramList['messageId'] = $messageId;
 		return $this->TB_Request($method, $url, $paramList);
 	}
 
@@ -305,15 +299,33 @@ final class TokBoxApi extends BaseApi {
 	 *
 	 *AuthLevel: require_guest
 	 *
-	 *@param string $message_id Message ID of the video mail being retrieved.
+	 *@param string $messageId Message ID of the video mail being retrieved.
 	 *
 	 *@return Response string to API call
 	*/
-	public function getVMail($message_id) {
+	public function getVMail($messageId) {
 		$method = "POST";
 		$url = "/vmail/getVmail";
 		$paramList = array();
-		$paramList['message_id'] = $message_id;
+		$paramList['messageId'] = $messageId;
+		return $this->TB_Request($method, $url, $paramList);
+	}
+
+
+	/**
+	 *Returns all messages sent or recieved by user containing a specific content id.
+	 *
+	 *AuthLevel: require_user
+	 *
+	 *@param string $contentId Content ID of the video mail being retrieved.
+	 *
+	 *@return Response string to API call
+	*/
+	public function getMessagesWithContent($contentId) {
+		$method = "POST";
+		$url = "/vmail/getMessages";
+		$paramList = array();
+		$paramList['contentId'] = $contentId;
 		return $this->TB_Request($method, $url, $paramList);
 	}
 
@@ -323,63 +335,37 @@ final class TokBoxApi extends BaseApi {
 	 *
 	 *AuthLevel: require_guest
 	 *
-	 *@param string $message_id MessageId of the video post
+	 *@param string $messageId MessageId of the video post
 	 *@param integer $numcomments Number of comments to return
 	 *
 	 *@return Response string to API call
 	*/
-	public function getVideoPost($numcomments, $message_id) {
+	public function getVideoPost($numcomments, $messageId) {
 		$method = "POST";
 		$url = "/vmail/getPost";
 		$paramList = array();
-		$paramList['message_id'] = $message_id;
+		$paramList['messageId'] = $messageId;
 		$paramList['numcomments'] = $numcomments;
 		return $this->TB_Request($method, $url, $paramList);
 	}
 
 
 	/**
-	 *Add a comment on the end of the specified post
+	 *Returns a list of all the comments associated with a given message ID
 	 *
 	 *AuthLevel: require_guest
 	 *
-	 *@param jid $posterjabberId The Jabber ID of the person making the post
-	 *@param string $vmailmessageid Message ID of the post that this comment refers to
-	 *@param string $vmailcontentid If this is a video post then this is the VMail ID of the video.
-	 *@param string $commenttext The text component of the comment
-	 *@param integer $templateId A reference to the template to apply to this vmail
-	 *
-	 *@return Response string to API call
-	*/
-	public function addComment($commenttext, $vmailmessageid, $posterjabberId, $vmailcontentid = null, $templateId = null) {
-		$method = "POST";
-		$url = "/vmail/addcomment";
-		$paramList = array();
-		$paramList['posterjabberId'] = $posterjabberId;
-		$paramList['vmailmessageid'] = $vmailmessageid;
-		if($vmailcontentid !== null) $paramList['vmailcontentid'] = $vmailcontentid;
-		$paramList['commenttext'] = $commenttext;
-		if($templateId !== null) $paramList['templateId'] = $templateId;
-		return $this->TB_Request($method, $url, $paramList);
-	}
-
-
-	/**
-	 *Returns a list of all the comments associated with a given message_id
-	 *
-	 *AuthLevel: require_guest
-	 *
-	 *@param string $message_id The Message ID of the post against which comments are being collected.
+	 *@param string $messageId The Message ID of the post against which comments are being collected.
 	 *@param integer $start The comment from which to start returning results.
 	 *@param integer $count The number of comments to return.
 	 *
 	 *@return Response string to API call
 	*/
-	public function getAllPostComments($message_id, $start = null, $count = null) {
+	public function getAllPostComments($messageId, $start = null, $count = null) {
 		$method = "POST";
 		$url = "/vmail/getcomments";
 		$paramList = array();
-		$paramList['message_id'] = $message_id;
+		$paramList['messageId'] = $messageId;
 		if($start !== null) $paramList['start'] = $start;
 		if($count !== null) $paramList['count'] = $count;
 		return $this->TB_Request($method, $url, $paramList);
@@ -440,16 +426,16 @@ final class TokBoxApi extends BaseApi {
 	 *AuthLevel: require_user
 	 *
 	 *@param jid $jabberId Jabber ID of the recipient of the call event upon which is being deleted.
-	 *@param string $invite_id Invite ID of the call upon which is being acted.
+	 *@param string $inviteId Invite ID of the call upon which is being acted.
 	 *
 	 *@return Response string to API call
 	*/
-	public function deleteCallEvent($invite_id, $jabberId) {
+	public function deleteCallEvent($inviteId, $jabberId) {
 		$method = "POST";
 		$url = "/callevent/delete";
 		$paramList = array();
 		$paramList['jabberId'] = $jabberId;
-		$paramList['invite_id'] = $invite_id;
+		$paramList['inviteId'] = $inviteId;
 		return $this->TB_Request($method, $url, $paramList);
 	}
 
@@ -460,16 +446,16 @@ final class TokBoxApi extends BaseApi {
 	 *AuthLevel: require_user
 	 *
 	 *@param jid $jabberId Jabber ID of the recipient of the call event which is being marked viewed.
-	 *@param string $invite_id Invite ID of the call upon which is being acted.
+	 *@param string $inviteId Invite ID of the call upon which is being acted.
 	 *
 	 *@return Response string to API call
 	*/
-	public function markCallEventViewed($invite_id, $jabberId) {
+	public function markCallEventViewed($inviteId, $jabberId) {
 		$method = "POST";
 		$url = "/callevent/markasviewed";
 		$paramList = array();
 		$paramList['jabberId'] = $jabberId;
-		$paramList['invite_id'] = $invite_id;
+		$paramList['inviteId'] = $inviteId;
 		return $this->TB_Request($method, $url, $paramList);
 	}
 

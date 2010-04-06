@@ -71,4 +71,56 @@ class TokBoxUser {
 
 		return self::createUser($jabberId, $accessSecret);
 	}
+
+	/**
+	 * usage: 
+  	 *			$apiObj = TokBoxUser::createUser($jabberId, $accessSecret); 
+  	 *			$profile_array = get_tokbox_user_profile($apiObj,$requested_id);
+	 *
+	 * @author sumotoy@*****.com
+	 */
+	public static function getUserProfile(TokBoxApi $userObj, $target_jabberId) { 
+		$apiObj = new TokBoxApi(API_Config::PARTNER_KEY, API_Config::PARTNER_SECRET); 
+		$valid = $apiObj->validateAccessToken($userObj->getSecret(), $userObj->getJabberId()); 
+
+		if(!$valid) {
+			throw new Exception("Unable to connect to ".API_Config::API_SERVER.". Please check to make sure API calls are executing properly");
+		}
+
+		$validXml = simplexml_load_string($valid, 'SimpleXMLElement', LIBXML_NOCDATA); 
+		if($validXml->validateAccessToken->isValid == 'false') {
+			throw new Exception("The Jabber ID and Access Secret combination you passed in are not valid"); 
+		}
+
+		$profile = $userObj->getUserProfile($target_jabberId); 
+		if(!$profile) {
+			throw new Exception("Unable to connect to ".API_Config::API_SERVER.". Please check to make sure API calls are executing properly"); 
+		}
+
+		$profileXml = simplexml_load_string($profile, 'SimpleXMLElement', LIBXML_NOCDATA); 
+		if(isset($profileXml->error)) { 
+			throw new Exception($profileXml->error, (int)$profileXml->error['code']);
+		}
+
+		$profileResults = array(); 
+		$profileResults['userid'] = (string) $profileXml->user->userid; 
+		$profileResults['jabberid'] = (string) $profileXml->user->jabberid;
+		$profileResults['firstname'] = (string) $profileXml->user->firstname; 
+		$profileResults['lastname'] = (string) $profileXml->user->lastname;
+		$profileResults['displayName'] = (string) $profileXml->user->displayName;
+		$profileResults['username'] = (string) $profileXml->user->username;
+		$profileResults['isOnline'] = (string) $profileXml->user->isOnline;
+		$profileResults['show'] = (string) $profileXml->user->show;
+
+		return $profileResults; 
+	}
+
+	function get_tokbox_user_profile($apiObj,$jabberId) { 
+		$profile = TokBoxUser::getUserProfile($apiObj,$jabberId); 
+		if (is_array($profile)) { 
+        	return $profile; 
+		}
+
+		return null;
+	}
 }
