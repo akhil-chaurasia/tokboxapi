@@ -15,9 +15,21 @@ The video recorder embed can be customized by setting specific values to a range
 
 === Flashvar Parameters ===
 
+====hideSendButton====
+  * True if the send button should not be available
+  * _This is how TokBox is providing a widget to allow users to make sure that their camera and microphone settings work before they join a call_
+
 ====saveTo====
   * If you want to skip the "Send To" screen, then this flash var can be set, and needs to be the user ID of the receipient
   * _e.g. saveTo=1 where 1 is the user ID of the user to whom you are sending the video mail_
+
+====showGreetings====
+  * False if the greetings card option should be turned off
+
+====timeLimit====
+  * Integer in seconds for the maximum length of the video message
+  * _Note that the maximum length cannot be more than 10 minutes or less than 10 seconds_
+
 
 ====vmailFirstName====
   * The developer sets the first name of the sender.
