@@ -29,5 +29,5 @@
   * Adds a button to the embed of a call widget which will in turn call the specified user when clicked. Allows a specified user to be invited to a call if they are on the TokBox site or in the AIR application, but not where the widget is embedded. 
 
 ==Who Am I==
-  * <a href="http://sandbox.tokbox.com/assets/API/WhoAmI.zip">Source Code (PHP)</a>
+  * <a href="http://tokboxapi.googlecode.com/files/whoami.zip">Source Code (PHP)</a>
   * Allows you to find out your User ID and Jabber ID in case you are embedding a widget, but don't know these values and need them.
