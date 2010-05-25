@@ -21,11 +21,11 @@
   * Generates an invite and sends it through a call widget to the party on the other end to accept assuming that they are logged into either the <a href="http://www.tokbox.com">TokBox</a> web application or the <a href="http://www.tokbox.com/view/downloads">AIR Desktop Client</a>
 
 ==VMail Reader==
-  * <a href="http://sandbox.tokbox.com/assets/API/vmailReader.zip">Source Code (PHP)</a>
+  * <a href="http://code.google.com/p/tokboxapi/downloads/detail?name=vmailreader.zip&can=2&q=">Source Code (PHP)</a>
   * Creates an interface for reading VMails that were sent to a user. Demonstrates functionality surrounding dealing with feeds, embedding the TokBox player, and handling user login and registration 
 
 ==Invite Function==
-  * <a href="http://sandbox.tokbox.com/assets/API/InviteFunction.zip">Source Code (PHP)</a>
+  * <a href="http://code.google.com/p/tokboxapi/downloads/detail?name=invitefunction.zip&can=2&q=">Source Code (PHP)</a>
   * Adds a button to the embed of a call widget which will in turn call the specified user when clicked. Allows a specified user to be invited to a call if they are on the TokBox site or in the AIR application, but not where the widget is embedded. 
 
 ==Who Am I==
