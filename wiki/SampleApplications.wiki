@@ -6,7 +6,7 @@
 
 *Featured Functionality:* Dynamically generated video conferences
 
-<a href="http://sandbox.tokbox.com/sampleApp/generator">Try this application</a> | <a href="http://sandbox.tokbox.com/assets/API/videoparty.zip">Download source code (PHP)</a>
+<a href="http://sandbox.tokbox.com/sampleApp/generator">Try this application</a> | <a href="http://code.google.com/p/tokboxapi/downloads/detail?name=videoparty.zip">Download source code (PHP)</a>
 
 ==Wedding Video Guestbook==
 *Description:* A video guestbook for friends who can't make it to your wedding or just want to send well wishes in a unique way.
