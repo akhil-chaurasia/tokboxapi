@@ -13,7 +13,7 @@
 
 *Featured Functionality:* VMail Recorder; VMail playback; Reading a user's feed; Using built-in Javascript functions from the recorder widget
 
-<a href="http://sandbox.tokbox.com/sampleApp/guestbook">Try this application</a> | <a href="http://sandbox.tokbox.com/assets/API/weddingbook.zip">Download source code (PHP)</a>
+<a href="http://sandbox.tokbox.com/sampleApp/guestbook">Try this application</a> | <a href="http://code.google.com/p/tokboxapi/downloads/detail?name=weddingbook.zip&can=2&q=">Download source code (PHP)</a>
 
 =Source Code=
 ==Invite Generator==
