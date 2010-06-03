@@ -4,6 +4,9 @@
   * [http://code.google.com/p/tokboxapi/wiki/CreateCall Create Video Chat Room]
     * Create a video chat room
 
+  * [http://code.google.com/p/tokboxapi/wiki/CreateSimpleChatRoom Create Simple Video Chat Room]
+    * Create a video chat room without needing to generate a guest user. Note that this only works with the v1 version of the API
+
   * [http://code.google.com/p/tokboxapi/wiki/CreateModeratedChatRoom Create Moderated Chat Room]
     * Create a moderated video chat room
 
