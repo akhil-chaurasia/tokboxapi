@@ -1,7 +1,7 @@
 #summary Register a user in the TokBox system
 
 ==Description==
-  * *Authorization Level:* require_guest
+  * *Authorization Level:* require_partner
 
 ==Parameters==
 <table cellpadding="2" style="background-color:#E0FFFF; border:1px solid #48D1CC; margin: 0px; width: 100%">
