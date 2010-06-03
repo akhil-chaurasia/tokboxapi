@@ -7,9 +7,6 @@
   * [http://code.google.com/p/tokboxapi/wiki/CreateInvite Create Invite]
     * Create an invite to a particular call and return an invite id.
 
-  * [http://code.google.com/p/tokboxapi/wiki/JoinCall Join Call]
-    *Get the media server / callId from an inviteId.
-
   * [http://code.google.com/p/tokboxapi/wiki/ValidateCallID Validate Call ID]
     * Returns whether or not a call id still exists
 
