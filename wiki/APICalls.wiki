@@ -13,6 +13,7 @@
   * [http://code.google.com/p/tokboxapi/wiki/ValidateCallID Validate Call ID]
     * Returns whether or not a call id still exists
 
+<wiki:comment>
 ==Contacts API Actions==
   * [http://code.google.com/p/tokboxapi/wiki/AddContact Add Contact]
     * Add users to your TokBox contact list.
@@ -22,6 +23,7 @@
 
   * [http://code.google.com/p/tokboxapi/wiki/RemoveContact Remove Contact]
     * Remove a user from your TokBox contact list.
+</wiki:comment>
 
 ==Feed API Actions==
   * [http://code.google.com/p/tokboxapi/wiki/DeleteVMail Delete VMail from Feed]
