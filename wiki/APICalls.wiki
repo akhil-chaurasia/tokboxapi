@@ -2,10 +2,13 @@
 
 ==Call API Actions==
   * [http://code.google.com/p/tokboxapi/wiki/CreateCall Create Video Chat Room]
-    * Create a call and return the media server address and call id. 
+    * Create a video chat room
+
+  * [http://code.google.com/p/tokboxapi/wiki/CreateModeratedChatRoom Create Moderated Chat Room]
+    * Create a moderated video chat room
 
   * [http://code.google.com/p/tokboxapi/wiki/StartModeratedVideoChat Start Moderated Video Chat]
-    * Start a moderated video chat which has been created using the Create Moderated Video Chat method
+    * Start a moderated video chat which has been created using the [http://code.google.com/p/tokboxapi/wiki/CreateModeratedChatRoom Create Moderated Chat Room] method
 
   * [http://code.google.com/p/tokboxapi/wiki/CreateInvite Create Video Chat Invite]
     * Create an invite to a particular call and return an invite id.
