@@ -1,0 +1,60 @@
+#summary Create a moderated chat room instance
+
+==Description==
+  * *Authorization Level:* require_user
+
+
+==Parameters==
+<table cellpadding="2" style="background-color:#E0FFFF; border:1px solid #48D1CC; margin: 0px; width: 100%">
+|| *Required* || *Name* || *Type* || *Description* ||
+|| required || call_def_id || integer || Should be 1 for a moderated chat room and 3 for a broadcast chat room ||
+|| || call_name || string || Name of the video chat room ||
+|| || call_type || string  || "open" to allow anyone to join the call or "closed" to force participants to ask to join the call ||
+|| || call_owner || integer || User ID of the owner of the call who can always enter and leave regardless of the type of the call ||
+</table>
+
+==Error Codes==
+
+
+==Return Syntax==
+{{{ 
+<CallInstance uri="call.6319" call_instance_id="6319">
+  <attributes>
+	<fms_instance></fms_instance>
+	<name>Melih O.'s Chat</name>
+	<end_date></end_date>
+  </attributes>
+  <ParticipantMap>
+	<Participant>
+	  <rank>1</rank>
+	  <user_uri_pattern>user.547747</user_uri_pattern>
+	  <participant_type>Owner</participant_type>
+	</Participant>
+	<Participant>
+	  <rank>99999</rank>
+	  <user_uri_pattern>user</user_uri_pattern>
+	  <participant_type>Blocked</participant_type>
+	</Participant>
+  </ParticipantMap>
+  <ACL>
+	<ACLItem>&lt;AclInstance call.participant_type.Participant can access call.state.join&gt;</ACLItem>
+	<ACLItem>&lt;AclInstance call.participant_type.Owner can access call&gt;</ACLItem>
+	<ACLItem>&lt;AclInstance call.participant_type.Moderator can access call&gt;</ACLItem>
+  </ACL>
+  <Resources>
+	
+			<Resource id="3552">
+	  			<type>whitelist</type>
+	  			
+	  
+	  				<Userlist value="3552" type="whitelist">
+   						<User>user.547935</User>
+	 	 			</Userlist>
+			</Resource>
+  </Resources>
+</CallInstance>
+}}}
+
+==Notes==
+  * The {callerName} is used to notify users who are invited as to who is inviting them.
+  * After creating a call, use [CreateInvite Create Invite] to invite any party you wish to join the call.
