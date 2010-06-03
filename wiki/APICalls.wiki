@@ -24,9 +24,6 @@
     * Remove a user from your TokBox contact list.
 
 ==Feed API Actions==
-  * [http://code.google.com/p/tokboxapi/wiki/DeleteMissedCallEvent Delete Call Event from Feed]
-    * Delete a call event from the feed
-
   * [http://code.google.com/p/tokboxapi/wiki/DeleteVMail Delete VMail from Feed]
     * Removes a video mail from a user's feed/inbox.
 
@@ -35,9 +32,6 @@
 
   * [http://code.google.com/p/tokboxapi/wiki/GetFeedUnreadCount Get Feed Unread Count]
     * Returns the number of unread feed items
-
-  * [http://code.google.com/p/tokboxapi/wiki/MarkCallEventViewed Mark Call Event Viewed]
-    * Mark a call event as viewed
 
   * [http://code.google.com/p/tokboxapi/wiki/MarkVMailAsRead Mark VMail as Read]
     * Mark a video mail read.
