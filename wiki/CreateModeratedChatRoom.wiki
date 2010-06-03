@@ -56,5 +56,4 @@
 }}}
 
 ==Notes==
-  * The {callerName} is used to notify users who are invited as to who is inviting them.
-  * After creating a call, use [CreateInvite Create Invite] to invite any party you wish to join the call.
+* After creating a moderated chat room, you will need to start the moderated chat before users can join the video chat
