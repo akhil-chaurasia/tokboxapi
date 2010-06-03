@@ -1,0 +1,25 @@
+#summary Create a simple video chat room API method. _Note that this new method no longer requires that a guest user is generated_
+
+==Description==
+  * *Authorization Level:* require_partner
+
+
+==Parameters==
+<table cellpadding="2" style="background-color:#E0FFFF; border:1px solid #48D1CC; margin: 0px; width: 100%">
+|| *Required* || *Name* || *Type* || *Description* ||
+|| optional || persistent || boolean  || True if this callid should remain valid past the normal 4 day timeout ||
+</table>
+
+==Error Codes==
+
+==Return Syntax==
+{{{ 
+<tokResult>
+     <createCall persistent="false">
+          <callId>6qffexe8gwhbowty</callId>
+          <server>elko-fms.tokbox.com/tokbox</server>
+     </createCall>
+</tokResult>
+}}}
+
+==Notes==
