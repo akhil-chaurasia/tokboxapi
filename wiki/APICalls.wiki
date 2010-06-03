@@ -1,10 +1,13 @@
 #summary List of all of the API calls, their parameters, errors and expected responses. You should only need this page if you are NOT using one of the TokBox provided SDKs
 
 ==Call API Actions==
-  * [http://code.google.com/p/tokboxapi/wiki/CreateCall Create Call]
+  * [http://code.google.com/p/tokboxapi/wiki/CreateCall Create Video Chat Room]
     * Create a call and return the media server address and call id. 
 
-  * [http://code.google.com/p/tokboxapi/wiki/CreateInvite Create Invite]
+  * [http://code.google.com/p/tokboxapi/wiki/StartModeratedVideoChat Start Moderated Video Chat]
+    * Start a moderated video chat which has been created using the Create Moderated Video Chat method
+
+  * [http://code.google.com/p/tokboxapi/wiki/CreateInvite Create Video Chat Invite]
     * Create an invite to a particular call and return an invite id.
 
   * [http://code.google.com/p/tokboxapi/wiki/ValidateCallID Validate Call ID]
