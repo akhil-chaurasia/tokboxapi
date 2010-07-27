@@ -43,8 +43,8 @@ The video chat embed can be customized by setting specific values to a set of fl
 =====showSocialInvite=====
   * True if the social invite screen in the video window section of the video chat widget should be shown
 
-=====showTwitterButton=====
-  * True if the Twitter button should be available on the call widget. This will allow users to tweet the URL of the conference so that other users can join them. The user must have a Twitter account for this functionality to work.
+=====showInviteButton=====
+  * True if the Invite button should be available on the call widget. This will allow users to tweet the URL of the conference so that other users can join them. The user must have a Twitter account for this functionality to work.
 
 =====textChat=====
   * True if the call widget should have a text chat component.
