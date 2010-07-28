@@ -19,7 +19,7 @@
   * [http://code.google.com/p/tokboxapi/wiki/ValidateCallID Validate Call ID]
     * Returns whether or not a call id still exists
 
-<wiki:comment>
+
 ==Contacts API Actions==
   * [http://code.google.com/p/tokboxapi/wiki/AddContact Add Contact]
     * Add users to your TokBox contact list.
@@ -29,7 +29,7 @@
 
   * [http://code.google.com/p/tokboxapi/wiki/RemoveContact Remove Contact]
     * Remove a user from your TokBox contact list.
-</wiki:comment>
+
 
 ==Feed API Actions==
   * [http://code.google.com/p/tokboxapi/wiki/DeleteVMail Delete VMail from Feed]
@@ -38,17 +38,15 @@
   * [http://code.google.com/p/tokboxapi/wiki/GetFeed Get Feed]
     * Return the user's feed.
 
-  * [http://code.google.com/p/tokboxapi/wiki/GetFeedUnreadCount Get Feed Unread Count]
-    * Returns the number of unread feed items
-
   * [http://code.google.com/p/tokboxapi/wiki/MarkVMailAsRead Mark VMail as Read]
     * Mark a video mail read.
 
 ==Token API Actions==
+<wiki:comment>
   * [http://code.google.com/p/tokboxapi/wiki/GetRequestToken Get Request Token]
     * Creates a request token tied to the creating partner.
     * This can be exchanged on the TokBox site for an access token, which is then passed to API calls as authentication on user actions.
-
+</wiki:comment>
   * [http://code.google.com/p/tokboxapi/wiki/GetAccessToken Get Access Token]
     * Allows a developer to programmatically get an access token for a user who has authorized them
 
