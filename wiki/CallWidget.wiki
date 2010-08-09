@@ -61,14 +61,12 @@ If you want to count the number of users in a call, then simply use the followin
 	}
 }}}
 
-=====tokbox.load=====
-If you want to execute an action, such as sending an invitation when the widget is finished loading, you can use the ''tokbox.load'' function which is called when the call widget finishes loading.
+=====widgetConnected=====
+If you want to execute an action, such as sending an invitation when the widget is finished loading, you can use the ''widgetConnected'' function which is called when the call widget finishes loading.
 
 Example code:
-{{{
-     if (typeof(tokbox) == 'undefined') tokbox = new Object();
-     
-     tokbox.load = function() {
+{{{ 
+     function widgetConnected() {
           sendInvite(...);
      }
 }}}
