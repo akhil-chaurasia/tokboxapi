@@ -18,6 +18,10 @@ The video chat embed can be customized by setting specific values to a set of fl
 =====addVideoButton=====
   * True if the Add Video option should be available on the call widget. Through this interface, users can add YouTube, SlideShare, or TokBox VMails into the call widget.
 
+=====displayName=====
+  * The name of the user who has joined the call. This will replace the default "Guest 0" to be the value which is passed in by the developer
+
+
 =====guestList=====
   * True if the call widget should have a list of participants displayed. 
   * _Note that this will add vertical height to the dimensions of your call widget, and this should be taken into account when setting the height and width of the widget._
