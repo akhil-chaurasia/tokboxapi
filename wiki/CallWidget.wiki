@@ -143,3 +143,25 @@ Example code for this function:
           alert('User just joined chat');
      }
 }}}
+
+=====toggleMute=====
+To toggle the mute of the local participant in the video chat, then use this function. The user will see that they are muted in their video view, and can unmute themselves.
+
+Example code for this function:
+{{{
+     function toggleMute() {
+          //assuming that your widget id is tbx_call
+          document.getElementById('tbx_call').toggleMute();
+     }
+}}}
+
+=====hangupCall=====
+To close a call for a local participant, then use this function.
+
+Example code for this function
+{{{
+     function toggleMute() {
+          //assuming that your widget id is tbx_call
+          document.getElementById('tbx_call').hangupCall();
+     }
+}}}
