@@ -13,12 +13,11 @@
 </tr>
 <tr>
 <td>
-==[PresenceWidget Presence Widget]==
-  * The TokBox presence widget which lets you add basic presence and IM functionality to your own website
-</td>
-<td>
 ==[VideoPlayerWidget Video Player Widget]==
   * The TokBox video player widget which lets you play back video mails recorded on TokBox.com or using the [VideoRecorderWidget Video Recorder Widget]
+</td>
+<td>
+&nbsp;
 </td>
 </tr>
 </table>
