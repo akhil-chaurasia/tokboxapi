@@ -1,6 +1,0 @@
-#summary Are you working on an exciting project that uses TokBox? Feel free to add yourself, and your project, to this page.
-
-==Featured Projects==
-eMediaboard is an online synchronous collaboration platform built around a multimedia white board (www.emediaboard.com)
-
-eMediacoach (www.emediacoach.com) uses the power of eMediaboard to provide a tutoring/coaching environment with white board, calendaring and now video chat using tokbox. See all the features at http://www.emediacoach.com/features.php
