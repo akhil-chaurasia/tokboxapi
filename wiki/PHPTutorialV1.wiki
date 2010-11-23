@@ -46,12 +46,14 @@ credentials to our API_Config.php file.
 }}}
 
   * If you go to this file in your browser, then you should see a jabber ID and a user access token printed on the page. Mine were:
+
 {{{
-The user is 547747@jabber.dev.tokbox.com
-The access token is a823adc03a4885080fbb8cba2f76a33a
+    The user is 547747@jabber.dev.tokbox.com
+    The access token is a823adc03a4885080fbb8cba2f76a33a
 }}}		
 
   * Let's go ahead and copy these values into our API_Config.php file like we did earlier. Don't forget to substitute my values for the values you generated.
+
 {{{
      // User who generates moderated calls
      const MODERATION_USER = "547747@jabber.dev.tokbox.com";
