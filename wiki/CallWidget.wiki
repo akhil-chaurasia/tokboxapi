@@ -60,7 +60,7 @@ If you want to count the number of users in a call, then simply use the followin
 {{{
 	document.getElementById("tbx_call").userCount();	
 
-	function userCountHandler(userCount) {
+	var userCountHandler = function(userCount) {
 		alert("The number of users in the call is " + userCount);
 	}
 }}}
