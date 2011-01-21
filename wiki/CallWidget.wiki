@@ -8,7 +8,7 @@ The TokBox call widget allows web developers to add TokBox call functionality to
 
 
 == Quick Start ==
-  * Click [http://www.tokbox.com/#embed=call here] to get started building your own custom call widget embed
+  * Click [http://me.tokbox.com/#embed=call here] to get started building your own custom call widget embed
 
 == Customization ==
 
