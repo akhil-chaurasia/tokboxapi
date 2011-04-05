@@ -7,16 +7,5 @@
   * The TokBox call widget which lets you bring up to 20 people into a video chat together.
 </td>
 <td>
-==[VideoRecorderWidget Video Recorder Widget]==
-  * The TokBox recorder widget which lets you send video mails to anyone using an e-mail address, or to other users in your community
-</td>
-</tr>
-<tr>
-<td>
-==[VideoPlayerWidget Video Player Widget]==
-  * The TokBox video player widget which lets you play back video mails recorded on TokBox.com or using the [VideoRecorderWidget Video Recorder Widget]
-</td>
-<td>
-</td>
 </tr>
 </table>
