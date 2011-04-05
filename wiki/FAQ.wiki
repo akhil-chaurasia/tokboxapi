@@ -1,38 +1,12 @@
-#summary Frequently Asked Questions about the TokBox API Platform
+#summary Frequently Asked Questions about the TokBox Call Widget API
 
 == Getting Started ==
 
 ==== Where can I get Help? ====
-  * Post a message to the the <a href="http://groups.google.com/group/tokbox-developers">TokBox-Developers group</a>.
+  * Post a message to the the <a href="http://groups.google.com/group/tokbox-developers">Call Widget Developers group</a>.
 
 ==== How do I get an API Key? ====
-  * For your production environment, please send an email to <a href="mailto:bizdev@tokbox.com">bizdev@tokbox.com</a>.
-  * For your development environment, submit the <a href="http://sandbox.tokbox.com/view/platformkeys">Sandbox API Key request form</a>.
+  * TokBox is no longer allowing for keys to be generated against the Call Widget API. Please instead use our new OpenTok API which you can find more information about at [http://www.tokbox.com/opentok]
 
 ====Can I use TokBox on my site without programming / API Keys====
-  * Absolutely. You can embed a Video Conference, Video Recorder, or Video Player the same way you would embed a YouTube video. Simply <a href="http://www.tokbox.com/#embed=">click here</a> to get started.
-
-====Will the Partner Key and Partner Secret work for the <a href="http://sandbox.tokbox.com/view/apibrowser">API Test Console</a> or do I need to request another key?====
-  * Your partner key and partner secret will work for the test console. Make sure that if you are in the <a href="http://sandbox.tokbox.com/view/apibrowser">Sandbox Test Console</a> that you are using a key/secret pair associated with the Sandbox environment. If you are using the <a href="http://api.tokbox.com/view/apibrowser">Production Test Console</a>, then you will need a key/secret pair associated with the Production environment.
-
-====Should I develop in the Sandbox or in Production?====
-  * If you are still developing your application in house, then it would probably be best to work in the Sandbox environment. The Sandbox gives you a testing environment with real data, but that won't go out to the users of the TokBox system. The data there is test data, and should be treated as such. Also, the Sandbox will often act as a preview for what will be coming into the Production environment, and you can therefore make sure that any changes to the API will work in your application. Once you are sure that all of the bugs are worked out of your application, and you are ready to push your application to a live environment, then you should make sure that you are using the Production API environment.
-
-== Common Problems ==
-
-=== On some browsers, the tokbox embed freezes after the preloader sequence complete ===
-  * Please make sure that you are properly embedding flash objects using [http://code.google.com/p/tokboxapi/wiki/EmbedCode SWFObject code].
-
-== General Questions ==
-
-=== What can I do with the TokBox API? ===
-
-  * Add Live Video Calls to your web site or web application.
-  * Add Video Mail / Video Recording to your web site.
-  * Retrieve and play back recorded video messages.
-
-=== Are Video Calls generated with the API Private? ===
-
-  * All video calls are private. If you would like to share the URL using Twitter or another service which you build into your application, then you are free to do so; however, TokBox will not publish any calls that are generated using the TokBox Platform.
-
-=== Who is using the TokBox API ===
+  * Absolutely. You can generate a simple embed. Please go to [http://www.tokbox.com/] to find out more
