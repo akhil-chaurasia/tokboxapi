@@ -1,4 +1,4 @@
-#summary All of the TokBox Platform widgets explained
+#summary The Call Widget API widgets and their functionality
 
 <table width="100%">
 <tr>
@@ -6,6 +6,5 @@
 ==[CallWidget Call Widget]==
   * The TokBox call widget which lets you bring up to 20 people into a video chat together.
 </td>
-<td>
 </tr>
 </table>
