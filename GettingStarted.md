@@ -1,0 +1,2 @@
+## Steps for the TokBox Call Widget API ##
+Please note that the Call Widget API is no longer allowing for new development. If you are interested in building a web based application which features video chat, then please check out the OpenTok API at http://www.tokbox.com/opentok
